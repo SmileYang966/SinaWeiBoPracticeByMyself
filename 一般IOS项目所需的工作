@@ -1,0 +1,4 @@
+一般IOS项目所需的工作:
+1> 规划好该app是否为横竖屏、是否仅仅在iphone平台上work、启动图片以及App Icon的设置
+2> 准备素材
+3> 如果是纯手写代码的话，需要在AppDelegate.m的文件里didFinishLaunchingWithOptions方法中写一些实现。
