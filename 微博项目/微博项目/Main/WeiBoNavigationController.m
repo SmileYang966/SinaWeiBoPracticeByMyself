@@ -14,6 +14,25 @@
 
 @implementation WeiBoNavigationController
 
++ (void)initialize{
+    [super initialize];
+    
+    //统一设置其enable 和 disable状态
+    //When the right barButtonItem is enabel , show the normal attribute
+    UIBarButtonItem *barButtonItem = [UIBarButtonItem appearance];
+    NSDictionary *attributeDict = @{NSFontAttributeName : [UIFont systemFontOfSize:15.0],
+                                    NSForegroundColorAttributeName : [UIColor orangeColor]
+                                    };
+    [barButtonItem setTitleTextAttributes:attributeDict forState:UIControlStateNormal];
+    
+    //when the right barButtonItem is disable,it will show the lightGray color and the
+    // relative barButtonItem was disabled.
+    NSDictionary *attributeDictDisabled = @{NSFontAttributeName : [UIFont systemFontOfSize:15.0],
+                                    NSForegroundColorAttributeName : [UIColor blueColor]
+                                    };
+    [barButtonItem setTitleTextAttributes:attributeDictDisabled forState:UIControlStateDisabled];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
