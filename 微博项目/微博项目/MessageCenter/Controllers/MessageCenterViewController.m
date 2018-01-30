@@ -37,7 +37,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     TestingViewController *testingVC = [[TestingViewController alloc]init];
-    testingVC.hidesBottomBarWhenPushed = YES;
+//    testingVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:testingVC animated:YES];
 }
 

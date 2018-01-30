@@ -25,14 +25,12 @@
  */
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
-    [super pushViewController:viewController animated:animated];
-    if (self.viewControllers.count>1) {
-        
+    if (self.viewControllers.count>0) {
         /* It's better if we use the category of UIBarButtonItem , and put it in the
          pch file , that we can use it to create the appropriate instance of UIBarButtonItem.
          But the important things was that we need to also pass by value for "Target" self, because we use the the "Action" as method
          */
-        
+        viewController.hidesBottomBarWhenPushed = YES;
         viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonWithTarget:self Action:@selector(backBtnClicked:) Image:@"navigationbar_back" HighlightedImage:@"navigationbar_back_highlighted"];
         
         viewController.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonWithTarget:self Action:@selector(backToRootViewController:) Image:@"navigationbar_more" HighlightedImage:@"navigationbar_more_highlighted"];
@@ -43,6 +41,7 @@
         viewController.navigationItem.rightBarButtonItem = [self barButtonWithAction:@selector(backToRootViewController:) Image:@"navigationbar_more" HighlightedImage:@"navigationbar_more_highlighted"];
          */
     }
+    [super pushViewController:viewController animated:animated];
 }
 
 /*
