@@ -28,7 +28,7 @@
     //when the right barButtonItem is disable,it will show the lightGray color and the
     // relative barButtonItem was disabled.
     NSDictionary *attributeDictDisabled = @{NSFontAttributeName : [UIFont systemFontOfSize:15.0],
-                                    NSForegroundColorAttributeName : [UIColor blueColor]
+                                    NSForegroundColorAttributeName : [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0]
                                     };
     [barButtonItem setTitleTextAttributes:attributeDictDisabled forState:UIControlStateDisabled];
 }
