@@ -7,6 +7,8 @@
 //
 
 #import "HomeViewController.h"
+#import "SCDropdownMenu.h"
+#import "HomeDropMenuTableViewController.h"
 
 @interface HomeViewController ()
 
@@ -23,13 +25,16 @@
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonWithTarget:self Action:@selector(rightBarButtonItemClicked:) Image:@"navigationbar_pop" HighlightedImage:@"navigationbar_pop_highlighted"];
     
     UIButton *titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    titleBtn.backgroundColor = [UIColor redColor];
-    NSDictionary *fontAttr = @{NSFontAttributeName : [UIFont systemFontOfSize:18.0]};
+//    titleBtn.backgroundColor = [UIColor redColor];
+    titleBtn.width = 100;
+    NSDictionary *fontAttr = @{NSFontAttributeName : [UIFont systemFontOfSize:17.0]};
     NSAttributedString *attrStr = [[NSAttributedString alloc]initWithString:@"首页" attributes:fontAttr];
     [titleBtn setAttributedTitle:attrStr forState:UIControlStateNormal];
     [titleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [titleBtn setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
     [titleBtn addTarget:self action:@selector(titleBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 55, 0, 0);
+    titleBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 30);
     self.navigationItem.titleView = titleBtn;
 }
 
@@ -39,13 +44,12 @@
 //这张图片我们只能垂直方向拉伸，因为水平方向是不规则的，一旦拉伸，原来的图片形状就变了
 //记住一个要点：做拉伸操作，只能对规则的那个方向(垂直还是水平)进行拉伸
 -(void)titleBtnClicked:(UIButton *)btn{
-    UIImageView *dropDownMenu = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, 217, 200)];
-    dropDownMenu.center = CGPointMake(self.view.center.x, dropDownMenu.center.y);
-    dropDownMenu.image = [UIImage imageNamed:@"popover_background"];
-    //如何保证我们当前的TitleBodyView始终在当前控制器的最上层
-    //事实上，我们可以手动创建多个UIWindow，但如何保证我们这个DropDownMenu始终保持在最上方呢
-    //这就需要用到下面的UIApplication的实例当中去取出最后一个也就是最上层的那个window
-    [[[UIApplication sharedApplication].windows lastObject] addSubview:dropDownMenu];
+    SCDropdownMenu *dropDownMenu1 = [SCDropdownMenu menu];
+    HomeDropMenuTableViewController *dropMenuTableVC = [[HomeDropMenuTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
+    dropMenuTableVC.view.height = 200;
+//    dropDownMenu1.content = dropMenuTableVC.view;
+    dropDownMenu1.vc = dropMenuTableVC;
+    [dropDownMenu1 show];
 }
 
 - (void)leftBarButtonItemClicked:(UIBarButtonItem *)item{
