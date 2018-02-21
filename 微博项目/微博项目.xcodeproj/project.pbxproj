@@ -25,6 +25,8 @@
 		25837A4520174EFF0010750B /* MessageCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25837A4420174EFF0010750B /* MessageCenterViewController.m */; };
 		25837A4820174F100010750B /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25837A4720174F100010750B /* DiscoverViewController.m */; };
 		25837A4B20174F220010750B /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25837A4A20174F220010750B /* ProfileViewController.m */; };
+		25EEA326202ECD6E00F4DB90 /* SCDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 25EEA325202ECD6E00F4DB90 /* SCDropdownMenu.m */; };
+		25EEA329202EF4CA00F4DB90 /* HomeDropMenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25EEA328202EF4CA00F4DB90 /* HomeDropMenuTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,10 @@
 		25837A4920174F220010750B /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		25837A4A20174F220010750B /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		25837A4C20175D4C0010750B /* WeiBo-PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WeiBo-PrefixHeader.pch"; sourceTree = "<group>"; };
+		25EEA324202ECD6E00F4DB90 /* SCDropdownMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCDropdownMenu.h; sourceTree = "<group>"; };
+		25EEA325202ECD6E00F4DB90 /* SCDropdownMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCDropdownMenu.m; sourceTree = "<group>"; };
+		25EEA327202EF4CA00F4DB90 /* HomeDropMenuTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeDropMenuTableViewController.h; sourceTree = "<group>"; };
+		25EEA328202EF4CA00F4DB90 /* HomeDropMenuTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeDropMenuTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +123,7 @@
 		250F067F201F38E600D2C63B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				25EEA323202ECC5300F4DB90 /* Views */,
 				25837A4C20175D4C0010750B /* WeiBo-PrefixHeader.pch */,
 				25837A2A2017470A0010750B /* AppDelegate.h */,
 				25837A2B2017470A0010750B /* AppDelegate.m */,
@@ -215,6 +222,8 @@
 			children = (
 				25837A4020174EE50010750B /* HomeViewController.h */,
 				25837A4120174EE50010750B /* HomeViewController.m */,
+				25EEA327202EF4CA00F4DB90 /* HomeDropMenuTableViewController.h */,
+				25EEA328202EF4CA00F4DB90 /* HomeDropMenuTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -271,6 +280,15 @@
 				25837A392017470A0010750B /* main.m */,
 			);
 			path = "微博项目";
+			sourceTree = "<group>";
+		};
+		25EEA323202ECC5300F4DB90 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				25EEA324202ECD6E00F4DB90 /* SCDropdownMenu.h */,
+				25EEA325202ECD6E00F4DB90 /* SCDropdownMenu.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,8 +369,10 @@
 				250F0692201F435000D2C63B /* UIView+UIView_Frame.m in Sources */,
 				250AF17D2018BF95000F1C72 /* WeiBoNavigationController.m in Sources */,
 				25837A4820174F100010750B /* DiscoverViewController.m in Sources */,
+				25EEA326202ECD6E00F4DB90 /* SCDropdownMenu.m in Sources */,
 				25837A3A2017470A0010750B /* main.m in Sources */,
 				25837A4520174EFF0010750B /* MessageCenterViewController.m in Sources */,
+				25EEA329202EF4CA00F4DB90 /* HomeDropMenuTableViewController.m in Sources */,
 				25837A4B20174F220010750B /* ProfileViewController.m in Sources */,
 				25824AFA202337AD00D25750 /* SCSearchBar.m in Sources */,
 				25837A2C2017470A0010750B /* AppDelegate.m in Sources */,
