@@ -30,8 +30,8 @@
         [self addChildWithViewController:messageCenterVC ImageName:@"tabbar_message_center" SelectedImageName:@"tabbar_message_center_selected" title:@"消息中心"];
         
         //Discover ViewController
-        DiscoverViewController *disconverVC = [[DiscoverViewController alloc]init];
-        [self addChildWithViewController:disconverVC ImageName:@"tabbar_discover" SelectedImageName:@"tabbar_discover_selected" title:@"发现"];
+        DiscoverViewController *discoverVC = [[DiscoverViewController alloc]init];
+        [self addChildWithViewController:discoverVC ImageName:@"tabbar_discover" SelectedImageName:@"tabbar_discover_selected" title:@"发现"];
         
         //Profile ViewController
         ProfileViewController *profileVC = [[ProfileViewController alloc]init];

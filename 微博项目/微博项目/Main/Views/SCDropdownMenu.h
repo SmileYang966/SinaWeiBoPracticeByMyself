@@ -11,7 +11,7 @@
 @interface SCDropdownMenu : UIView
 
 +(instancetype)menu;
--(void)show;
+-(void)showFrom:(UIView *)fromView;
 
 @property(nonatomic,strong) UIView *content;
 @property(nonatomic,strong) UIViewController *vc;

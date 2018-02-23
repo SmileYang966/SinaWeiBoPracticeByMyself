@@ -22,7 +22,7 @@
     UIBarButtonItem *barButtonItem = [UIBarButtonItem appearance];
     NSDictionary *attributeDict = @{NSFontAttributeName : [UIFont systemFontOfSize:15.0],
                                     NSForegroundColorAttributeName : [UIColor orangeColor]
-                                    };
+                                   };
     [barButtonItem setTitleTextAttributes:attributeDict forState:UIControlStateNormal];
     
     //when the right barButtonItem is disable,it will show the lightGray color and the

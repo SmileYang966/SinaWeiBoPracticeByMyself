@@ -36,6 +36,23 @@
     titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 55, 0, 0);
     titleBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 30);
     self.navigationItem.titleView = titleBtn;
+    
+    
+    UIButton *randomBtn = [[UIButton alloc]initWithFrame:CGRectMake(100, 100, 200, 30)];
+    randomBtn.backgroundColor = [UIColor redColor];
+    [randomBtn setTitle:@"Test" forState:UIControlStateNormal];
+    [randomBtn addTarget:self action:@selector(randomBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:randomBtn];
+}
+
+- (void)randomBtnClicked:(UIButton *)btn
+{
+    SCDropdownMenu *dropDownMenu1 = [SCDropdownMenu menu];
+    HomeDropMenuTableViewController *dropMenuTableVC = [[HomeDropMenuTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
+    dropMenuTableVC.view.height = 100;
+    dropMenuTableVC.view.width = 200;
+    dropDownMenu1.vc = dropMenuTableVC;
+    [dropDownMenu1 showFrom:btn];
 }
 
 //另外这里非常重要的一个知识点就是关于对图片的拉伸技术，
@@ -47,9 +64,9 @@
     SCDropdownMenu *dropDownMenu1 = [SCDropdownMenu menu];
     HomeDropMenuTableViewController *dropMenuTableVC = [[HomeDropMenuTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
     dropMenuTableVC.view.height = 200;
-//    dropDownMenu1.content = dropMenuTableVC.view;
+    dropMenuTableVC.view.width = 130;
     dropDownMenu1.vc = dropMenuTableVC;
-    [dropDownMenu1 show];
+    [dropDownMenu1 showFrom:btn];
 }
 
 - (void)leftBarButtonItemClicked:(UIBarButtonItem *)item{
@@ -57,6 +74,5 @@
 
 - (void)rightBarButtonItemClicked:(UIBarButtonItem *)item{
 }
-
 
 @end

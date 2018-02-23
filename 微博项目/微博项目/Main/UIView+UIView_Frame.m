@@ -46,6 +46,18 @@
     self.frame = changedFrame;
 }
 
+- (void)setCenterX:(CGFloat)centerX{
+    CGPoint center = self.center;
+    center.x = centerX;
+    self.center = center;
+}
+
+- (void)setCenterY:(CGFloat)centerY{
+    CGPoint center = self.center;
+    center.y = centerY;
+    self.center = center;
+}
+
 - (CGFloat)x{
     return self.frame.origin.x;
 }
@@ -68,6 +80,14 @@
 
 - (CGPoint)origin{
     return self.frame.origin;
+}
+
+- (CGFloat)centerX{
+    return self.centerX;
+}
+
+- (CGFloat)centerY{
+    return self.centerY;
 }
 
 @end

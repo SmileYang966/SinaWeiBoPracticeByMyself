@@ -16,7 +16,7 @@
 		251A5E13201C5914000C237E /* TestingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 251A5E11201C5914000C237E /* TestingViewController.xib */; };
 		251A5E17201C638B000C237E /* Testing2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 251A5E15201C638B000C237E /* Testing2ViewController.m */; };
 		251A5E18201C638B000C237E /* Testing2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 251A5E16201C638B000C237E /* Testing2ViewController.xib */; };
-		25824AFA202337AD00D25750 /* SCSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 25824AF9202337AD00D25750 /* SCSearchBar.m */; };
+		2541F0EA203EFBBA0021807C /* SCSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2541F0E8203EFBBA0021807C /* SCSearchBar.m */; };
 		25837A2C2017470A0010750B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 25837A2B2017470A0010750B /* AppDelegate.m */; };
 		25837A342017470A0010750B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25837A332017470A0010750B /* Assets.xcassets */; };
 		25837A372017470A0010750B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25837A352017470A0010750B /* LaunchScreen.storyboard */; };
@@ -45,8 +45,8 @@
 		251A5E14201C638B000C237E /* Testing2ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Testing2ViewController.h; sourceTree = "<group>"; };
 		251A5E15201C638B000C237E /* Testing2ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Testing2ViewController.m; sourceTree = "<group>"; };
 		251A5E16201C638B000C237E /* Testing2ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Testing2ViewController.xib; sourceTree = "<group>"; };
-		25824AF8202337AD00D25750 /* SCSearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCSearchBar.h; sourceTree = "<group>"; };
-		25824AF9202337AD00D25750 /* SCSearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCSearchBar.m; sourceTree = "<group>"; };
+		2541F0E8203EFBBA0021807C /* SCSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSearchBar.m; sourceTree = "<group>"; };
+		2541F0E9203EFBBA0021807C /* SCSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSearchBar.h; sourceTree = "<group>"; };
 		25837A272017470A0010750B /* 微博项目.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "微博项目.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25837A2A2017470A0010750B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		25837A2B2017470A0010750B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -181,8 +181,6 @@
 		250F0685201F392D00D2C63B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				25824AF8202337AD00D25750 /* SCSearchBar.h */,
-				25824AF9202337AD00D25750 /* SCSearchBar.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -285,6 +283,8 @@
 		25EEA323202ECC5300F4DB90 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2541F0E9203EFBBA0021807C /* SCSearchBar.h */,
+				2541F0E8203EFBBA0021807C /* SCSearchBar.m */,
 				25EEA324202ECD6E00F4DB90 /* SCDropdownMenu.h */,
 				25EEA325202ECD6E00F4DB90 /* SCDropdownMenu.m */,
 			);
@@ -373,8 +373,8 @@
 				25837A3A2017470A0010750B /* main.m in Sources */,
 				25837A4520174EFF0010750B /* MessageCenterViewController.m in Sources */,
 				25EEA329202EF4CA00F4DB90 /* HomeDropMenuTableViewController.m in Sources */,
+				2541F0EA203EFBBA0021807C /* SCSearchBar.m in Sources */,
 				25837A4B20174F220010750B /* ProfileViewController.m in Sources */,
-				25824AFA202337AD00D25750 /* SCSearchBar.m in Sources */,
 				25837A2C2017470A0010750B /* AppDelegate.m in Sources */,
 				25837A4220174EE50010750B /* HomeViewController.m in Sources */,
 				251A5E17201C638B000C237E /* Testing2ViewController.m in Sources */,
