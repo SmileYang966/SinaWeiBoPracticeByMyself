@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		250AF17A2018BCB8000F1C72 /* WeiBoTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 250AF1792018BCB8000F1C72 /* WeiBoTabBarController.m */; };
 		250AF17D2018BF95000F1C72 /* WeiBoNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 250AF17C2018BF95000F1C72 /* WeiBoNavigationController.m */; };
+		250D588A204579460087E274 /* SCTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 250D5889204579460087E274 /* SCTabBar.m */; };
 		250F068F201F3B5900D2C63B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 250F068D201F3B5900D2C63B /* Main.storyboard */; };
 		250F0692201F435000D2C63B /* UIView+UIView_Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 250F0691201F435000D2C63B /* UIView+UIView_Frame.m */; };
 		250F0695201F56EB00D2C63B /* UIBarButtonItem+CreateUIBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 250F0694201F56EB00D2C63B /* UIBarButtonItem+CreateUIBarButtonItem.m */; };
@@ -34,6 +35,8 @@
 		250AF1792018BCB8000F1C72 /* WeiBoTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeiBoTabBarController.m; sourceTree = "<group>"; };
 		250AF17B2018BF95000F1C72 /* WeiBoNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeiBoNavigationController.h; sourceTree = "<group>"; };
 		250AF17C2018BF95000F1C72 /* WeiBoNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeiBoNavigationController.m; sourceTree = "<group>"; };
+		250D5888204579460087E274 /* SCTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCTabBar.h; sourceTree = "<group>"; };
+		250D5889204579460087E274 /* SCTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCTabBar.m; sourceTree = "<group>"; };
 		250F068E201F3B5900D2C63B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		250F0690201F435000D2C63B /* UIView+UIView_Frame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+UIView_Frame.h"; sourceTree = "<group>"; };
 		250F0691201F435000D2C63B /* UIView+UIView_Frame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+UIView_Frame.m"; sourceTree = "<group>"; };
@@ -287,6 +290,8 @@
 				2541F0E8203EFBBA0021807C /* SCSearchBar.m */,
 				25EEA324202ECD6E00F4DB90 /* SCDropdownMenu.h */,
 				25EEA325202ECD6E00F4DB90 /* SCDropdownMenu.m */,
+				250D5888204579460087E274 /* SCTabBar.h */,
+				250D5889204579460087E274 /* SCTabBar.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -371,6 +376,7 @@
 				25837A4820174F100010750B /* DiscoverViewController.m in Sources */,
 				25EEA326202ECD6E00F4DB90 /* SCDropdownMenu.m in Sources */,
 				25837A3A2017470A0010750B /* main.m in Sources */,
+				250D588A204579460087E274 /* SCTabBar.m in Sources */,
 				25837A4520174EFF0010750B /* MessageCenterViewController.m in Sources */,
 				25EEA329202EF4CA00F4DB90 /* HomeDropMenuTableViewController.m in Sources */,
 				2541F0EA203EFBBA0021807C /* SCSearchBar.m in Sources */,

@@ -13,7 +13,9 @@
 #import "ProfileViewController.h"
 #import "WeiBoNavigationController.h"
 
-@interface WeiBoTabBarController ()
+#import "SCTabBar.h"
+
+@interface WeiBoTabBarController ()<SCTabBarDelegate>
 
 @end
 
@@ -57,6 +59,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    SCTabBar *scTabBar = [[SCTabBar alloc]initWithFrame:self.tabBar.bounds];
+    scTabBar.delegate = self;
+    [self setValue:scTabBar forKeyPath:@"tabBar"];
+}
+
+- (void)tabBarDidClickedPlusButton:(SCTabBar *)tabBar{
+    UIViewController *vc = [[UIViewController alloc]init];
+    vc.view.backgroundColor = [UIColor redColor];
+    [self presentViewController:vc animated:true completion:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    for (UIView *subView in self.tabBar.subviews) {
+        NSLog(@"---subview=%@,subviews.count=%d",subView,(int)self.tabBar.subviews.count);
+    }
 }
 
 @end
