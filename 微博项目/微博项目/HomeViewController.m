@@ -10,11 +10,32 @@
 #import "SCDropdownMenu.h"
 #import "HomeDropMenuTableViewController.h"
 
-@interface HomeViewController ()
+@interface HomeViewController ()<SCDropDownMenuDelegate>
+
+@property(nonatomic,strong)UIButton *titleBtn;
 
 @end
 
 @implementation HomeViewController
+
+- (UIButton *)titleBtn{
+    if (_titleBtn == NULL) {
+        UIButton *titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        titleBtn.width = 100;
+        NSDictionary *fontAttr = @{NSFontAttributeName : [UIFont systemFontOfSize:17.0]};
+        NSAttributedString *attrStr = [[NSAttributedString alloc]initWithString:@"首页" attributes:fontAttr];
+        [titleBtn setAttributedTitle:attrStr forState:UIControlStateNormal];
+        [titleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [titleBtn setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
+        [titleBtn setImage:[UIImage imageNamed:@"navigationbar_arrow_up"] forState:UIControlStateSelected];
+        [titleBtn addTarget:self action:@selector(titleBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 55, 0, 0);
+        titleBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 30);
+        _titleBtn = titleBtn;
+    }
+    return _titleBtn;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,19 +45,7 @@
     
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonWithTarget:self Action:@selector(rightBarButtonItemClicked:) Image:@"navigationbar_pop" HighlightedImage:@"navigationbar_pop_highlighted"];
     
-    UIButton *titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    titleBtn.backgroundColor = [UIColor redColor];
-    titleBtn.width = 100;
-    NSDictionary *fontAttr = @{NSFontAttributeName : [UIFont systemFontOfSize:17.0]};
-    NSAttributedString *attrStr = [[NSAttributedString alloc]initWithString:@"首页" attributes:fontAttr];
-    [titleBtn setAttributedTitle:attrStr forState:UIControlStateNormal];
-    [titleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [titleBtn setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
-    [titleBtn addTarget:self action:@selector(titleBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 55, 0, 0);
-    titleBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 30);
-    self.navigationItem.titleView = titleBtn;
-    
+    self.navigationItem.titleView = self.titleBtn;
     
     UIButton *randomBtn = [[UIButton alloc]initWithFrame:CGRectMake(100, 100, 200, 30)];
     randomBtn.backgroundColor = [UIColor redColor];
@@ -61,12 +70,26 @@
 //这张图片我们只能垂直方向拉伸，因为水平方向是不规则的，一旦拉伸，原来的图片形状就变了
 //记住一个要点：做拉伸操作，只能对规则的那个方向(垂直还是水平)进行拉伸
 -(void)titleBtnClicked:(UIButton *)btn{
+    /*
+    [btn setImage:[UIImage imageNamed:@"navigationbar_arrow_up"] forState:UIControlStateNormal];
+     */
     SCDropdownMenu *dropDownMenu1 = [SCDropdownMenu menu];
+    [self dropdownMenuDidShow:dropDownMenu1];
+    dropDownMenu1.delegate = self;
     HomeDropMenuTableViewController *dropMenuTableVC = [[HomeDropMenuTableViewController alloc]initWithStyle:UITableViewStyleGrouped];
     dropMenuTableVC.view.height = 200;
     dropMenuTableVC.view.width = 130;
     dropDownMenu1.vc = dropMenuTableVC;
     [dropDownMenu1 showFrom:btn];
+}
+
+-(void)dropdownMenuDidShow:(SCDropdownMenu *)menu{
+    self.titleBtn.selected = YES;
+}
+
+- (void)dropDownMenuDidDismiss:(SCDropdownMenu *)menu{
+//    [self.titleBtn setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
+    self.titleBtn.selected = NO;
 }
 
 - (void)leftBarButtonItemClicked:(UIBarButtonItem *)item{

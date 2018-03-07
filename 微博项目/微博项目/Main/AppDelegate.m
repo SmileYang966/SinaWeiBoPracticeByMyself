@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "WeiBoTabBarController.h"
+#import "NewFeaturesIntroductionsViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,8 +20,26 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    WeiBoTabBarController *tabBarController = [[WeiBoTabBarController alloc]init];
-    self.window.rootViewController = tabBarController;
+    
+    //需要先判断，显示新特性还是显示微博的WeiBoTabBarController
+    NSString *key = @"CFBundleVersion";
+    
+    //获取当前的Version
+     NSString *currentVersion = [NSBundle mainBundle].infoDictionary[key];
+    
+    //获取上一次从存储在沙盒中的version
+    NSString *lastVersion = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    
+    if (![currentVersion isEqualToString:lastVersion]) {
+        [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:key];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        NewFeaturesIntroductionsViewController *newFeature = [[NewFeaturesIntroductionsViewController alloc]init];
+        self.window.rootViewController = newFeature;
+    }else{
+         WeiBoTabBarController *tabBarController = [[WeiBoTabBarController alloc]init];
+         self.window.rootViewController = tabBarController;
+    }
+    
     [self.window makeKeyWindow];
     return YES;
 }

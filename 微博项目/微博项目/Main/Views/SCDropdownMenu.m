@@ -68,6 +68,9 @@
 
 - (void)dismiss{
     [self removeFromSuperview];
+    if ([self.delegate respondsToSelector:@selector(dropDownMenuDidDismiss:)]) {
+        [self.delegate dropDownMenuDidDismiss:self];
+    }
 }
 
 - (void)setContent:(UIView *)content{
