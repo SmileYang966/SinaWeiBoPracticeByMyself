@@ -112,9 +112,11 @@
         /*注意对对象通过NSKeyedArchiver的方式进行写入的时候，需要指定SCAccount对象的解码和压缩码的操作
         [NSKeyedArchiver archiveRootObject:account toFile:accountPath];
         */
-         
-        //接着选择进入版本新特性界面还是主TabBar界面
+        NSLog(@"Current NSThread1=%@",[NSThread currentThread]);
+        
+        //接着选择进入版本新特性界面还是主TabBar界面，要到主界面去做一些操作，所以要回到主线程做一些操作
         dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"Current NSThread2=%@",[NSThread currentThread]);
             [UIWindow switchedRootViewController];
         });
         
