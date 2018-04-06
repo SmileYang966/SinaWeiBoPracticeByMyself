@@ -19,6 +19,7 @@
 
 #import "UIView+UIView_Frame.h"
 #import "UIBarButtonItem+CreateUIBarButtonItem.h"
+#import "UIWindow+Extension.h"
 
 //开发状态用SCLog，如果是发布阶段，就没有任何log信息
 #ifdef DEBUG

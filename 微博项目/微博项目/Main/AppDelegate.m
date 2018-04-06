@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import "WeiBoTabBarController.h"
 #import "NewFeaturesIntroductionsViewController.h"
+#import "OAuthViewController.h"
+#import "SCAccount.h"
+#import "SCAccountManager.h"
 
 @interface AppDelegate ()
 
@@ -19,28 +22,25 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    /*
+   NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *accountPath = [docPath stringByAppendingPathComponent:@"account.plist"];
+    SCAccount *account = [NSKeyedUnarchiver unarchiveObjectWithFile:accountPath];
+    */
+    
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    
-    //需要先判断，显示新特性还是显示微博的WeiBoTabBarController
-    NSString *key = @"CFBundleVersion";
-    
-    //获取当前的Version
-     NSString *currentVersion = [NSBundle mainBundle].infoDictionary[key];
-    
-    //获取上一次从存储在沙盒中的version
-    NSString *lastVersion = [[NSUserDefaults standardUserDefaults] objectForKey:key];
-    
-    if (![currentVersion isEqualToString:lastVersion]) {
-        [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:key];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        NewFeaturesIntroductionsViewController *newFeature = [[NewFeaturesIntroductionsViewController alloc]init];
-        self.window.rootViewController = newFeature;
-    }else{
-         WeiBoTabBarController *tabBarController = [[WeiBoTabBarController alloc]init];
-         self.window.rootViewController = tabBarController;
-    }
-    
     [self.window makeKeyWindow];
+    
+    //通过SCAccountManager这个类去管理账户，这边只负责去取这个account，若取不到，则需要进入相应的授权页面
+    //重新授权
+    SCAccount *account =  [SCAccountManager account];
+    
+    if (account) {
+        [UIWindow switchedRootViewController];
+    }else{
+        self.window.rootViewController = [[OAuthViewController alloc]init];
+    }
     return YES;
 }
 
