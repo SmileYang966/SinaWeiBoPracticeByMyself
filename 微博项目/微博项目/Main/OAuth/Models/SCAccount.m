@@ -35,6 +35,7 @@ uid = 3889304284;
     [encoder encodeObject:self.expiredIn forKey:@"expires_in"];
     [encoder encodeObject:self.uid forKey:@"uid"];
     [encoder encodeObject:self.storeDate forKey:@"storeDate"];
+    [encoder encodeObject:self.name forKey:@"name"];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder{
@@ -43,6 +44,7 @@ uid = 3889304284;
         self.expiredIn = [aDecoder decodeObjectForKey:@"expires_in"];
         self.uid = [aDecoder decodeObjectForKey:@"uid"];
         self.storeDate = [aDecoder decodeObjectForKey:@"storeDate"];
+        self.name = [aDecoder decodeObjectForKey:@"name"];
     }
     return self;
 }
