@@ -21,6 +21,8 @@
 
 #import "UIImageView+WebCache.h"
 
+#import "SinaWeiBoTableViewCell.h"
+
 @interface HomeViewController ()<SCDropDownMenuDelegate>
 @property(nonatomic,strong)UIButton *titleBtn;
 @property(nonatomic,strong) NSMutableArray *statuses;
@@ -95,94 +97,21 @@
     
     //添加一个上拉刷新的功能
     [self addPullUpRefresh];
+    
+    //监听服务器未读区的微博数
+    [self moniterServerToGetUnreadMessages];
 }
 
-//添加一个上拉刷新的button
--(void)addPullUpRefresh{
-    self.footerView.hidden = YES;
-    // footView是不需要设置其x,y值的
-    self.tableView.tableFooterView = self.footerView;
-}
-
-//快要停下来的时候，开始显示那个footerView
-//- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
-//    self.footerView.hidden = false;
-//}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
-    //1.Get the offsetY
-    CGFloat offsetY = scrollView.contentOffset.y;
-    
-    //2.check if we have got the data from server
-    if (self.totalData.count==0)    return;
-    
-    //3.判断scrollView的偏移量
-    CGFloat judegOffsetY = scrollView.contentSize.height + scrollView.contentInset.bottom - scrollView.height - self.tableView.tableFooterView.height;
-    
-    if (offsetY >= judegOffsetY) {
-        //显示footerView
-        self.footerView.hidden = false;
-        
-        //加载最新数据
-        [self loadMoreStatus];
-        
-        /*
-         contentInset：除具体内容以外的边框尺寸
-         contentSize: 里面的具体内容（header、cell、footer），除掉contentInset以外的尺寸
-         contentOffset:
-         1.它可以用来判断scrollView滚动到什么位置
-         2.指scrollView的内容超出了scrollView顶部的距离（除掉contentInset以外的尺寸）
-         */
-    }
-}
-
--(void)loadMoreStatus{
-    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
-    NSMutableDictionary *paramDict = [NSMutableDictionary dictionary];
-    SCAccount *account = [SCAccountManager account];
-    paramDict[@"access_token"] = account.access_token;
-    paramDict[@"count"] = @10;
-    
-    SinaStatus *sinaStatus = [self.totalData lastObject];
-    if (sinaStatus != NULL) {
-        long long maxId = sinaStatus.idstr.longLongValue - 1;
-        paramDict[@"max_id"] = @(maxId);
-    }
-
-    [mgr GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:paramDict progress:^(NSProgress * _Nonnull downloadProgress) {
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        //1.遍历字典数组，取出每个字典数组转化成对象模型
-        NSDictionary *dict = responseObject;
-        NSArray *elements = dict[@"statuses"];
-        
-        //2.用一个可变的数组去存储新加载进来的SinaStatus
-        NSMutableArray *arrayM = [NSMutableArray array];
-        for (NSDictionary *dict in elements) {
-            SinaStatus *sinaStatus = [[SinaStatus alloc]initWithDict:dict];
-            [arrayM addObject:sinaStatus];
-        }
-        
-        //3.将更多数据显示在最后面
-        [self.totalData addObjectsFromArray:arrayM];
-        
-        //4.刷新表格
-        [self.tableView reloadData];
-        
-        //5.结束刷新后，需要去隐藏tableViewFootView
-        self.footerView.hidden = YES;
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        // 结束刷新
-        self.tableView.tableFooterView.hidden = YES;
-    }];
-}
-
+#pragma mark ================添加下拉刷新操作==========================
 
 -(void)addRefreshControl{
     //1.New一个UIRefreshControl的对象，并且将这个refreshControl对象直接加入到self.tableView中去
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc]init];
     [refreshControl addTarget:self action:@selector(refreshWeiBo:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refreshControl];
+    
+    //用自定义的refreshControl对象去引用这个局部变量
+    self.refreshControl = refreshControl;
     
     //2.一进入界面，就开始转那个refresh的圈圈
     [refreshControl beginRefreshing];
@@ -236,6 +165,10 @@
         
         //6.停止刷新后显示更新了多少条的数据
         [self showNewStatusCount:(int)arrayM.count];
+        
+        //7. 刷新完成需要更新当前的tableItem的bage值
+        self.tabBarItem.badgeValue = nil;
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         //7.失败后也停止刷新
@@ -265,14 +198,14 @@
     [self.navigationController.view insertSubview:label belowSubview:self.navigationController.navigationBar];
     
     /* 动画方式一，通过y值的变化来实现动画效果
-    [UIView animateWithDuration:1 animations:^{
-        label.y = 64;
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:1.0 delay:1.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            label.y = 64 - label.height;
-        } completion:^(BOOL finished) {
-        }];
-    }];
+     [UIView animateWithDuration:1 animations:^{
+     label.y = 64;
+     } completion:^(BOOL finished) {
+     [UIView animateWithDuration:1.0 delay:1.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+     label.y = 64 - label.height;
+     } completion:^(BOOL finished) {
+     }];
+     }];
      */
     
     //4.如果动画效果是实现之后又回到初始状态的情形，那么建议使用transform的方式
@@ -291,6 +224,164 @@
     }];
 }
 
+
+#pragma mark =====================添加上拉刷新的button===========================
+
+//添加一个上拉刷新的button
+-(void)addPullUpRefresh{
+    self.footerView.hidden = YES;
+    // footView是不需要设置其x,y值的
+    self.tableView.tableFooterView = self.footerView;
+}
+
+//快要停下来的时候，开始显示那个footerView
+//- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+//    self.footerView.hidden = false;
+//}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    //1.Get the offsetY
+    CGFloat offsetY = scrollView.contentOffset.y;
+    
+    //2.check if we have got the data from server
+    if (self.totalData.count==0)    return;
+    
+    //3.判断scrollView的偏移量
+    
+    /*
+     * 经过测试，我们发现每次请求数据都会请求两次数据，这就导致了我们接受了同样的两份数据
+     * 我们发现原来这里是调用了两次
+     * 经过分析原因，我们这里需要加上self.footerView.hidden这个check条件
+     * 想想也是说的通的，因为只有在footerView还在的时候才是需要加载数据
+     */
+    
+    /*若是屏幕本身的高度加上位移的长度能够 大于 scrollView本身的contentSize的话，说明已经滑倒最底端*/
+    if(scrollView.height + scrollView.contentOffset.y > scrollView.contentSize.height
+       && self.refreshControl.isRefreshing == NO && self.footerView.hidden)
+    {
+        //显示footerView
+        self.footerView.hidden = false;
+        
+        //加载最新数据
+        [self loadMoreStatus];
+        
+        /*
+         contentInset：除具体内容以外的边框尺寸
+         contentSize: 里面的具体内容（header、cell、footer），除掉contentInset以外的尺寸
+         contentOffset:
+         1.它可以用来判断scrollView滚动到什么位置
+         2.指scrollView的内容超出了scrollView顶部的距离（除掉contentInset以外的尺寸）
+         */
+    }
+    
+    
+    //    if (offsetY >= judegOffsetY) {
+    //        //显示footerView
+    //        self.footerView.hidden = false;
+    //
+    //        //加载最新数据
+    //        [self loadMoreStatus];
+    //
+    //        /*
+    //         contentInset：除具体内容以外的边框尺寸
+    //         contentSize: 里面的具体内容（header、cell、footer），除掉contentInset以外的尺寸
+    //         contentOffset:
+    //         1.它可以用来判断scrollView滚动到什么位置
+    //         2.指scrollView的内容超出了scrollView顶部的距离（除掉contentInset以外的尺寸）
+    //         */
+    //    }
+}
+
+-(void)loadMoreStatus{
+    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+    NSMutableDictionary *paramDict = [NSMutableDictionary dictionary];
+    SCAccount *account = [SCAccountManager account];
+    paramDict[@"access_token"] = account.access_token;
+    paramDict[@"count"] = @10;
+    
+    SinaStatus *sinaStatus = [self.totalData lastObject];
+    if (sinaStatus != NULL) {
+        // 若指定此参数，则返回ID小于或等于max_id的微博，默认为0。
+        // id这种数据一般都是比较大的，一般转成整数的话，最好是long long类型
+        long long maxId = sinaStatus.idstr.longLongValue - 1;
+        paramDict[@"max_id"] = @(maxId);
+    }
+    
+    [mgr GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:paramDict progress:^(NSProgress * _Nonnull downloadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        //1.遍历字典数组，取出每个字典数组转化成对象模型
+        NSDictionary *dict = responseObject;
+        NSArray *elements = dict[@"statuses"];
+        
+        //2.用一个可变的数组去存储新加载进来的SinaStatus
+        NSMutableArray *arrayM = [NSMutableArray array];
+        for (NSDictionary *dict in elements) {
+            SinaStatus *sinaStatus = [[SinaStatus alloc]initWithDict:dict];
+            [arrayM addObject:sinaStatus];
+        }
+        
+        //3.将更多数据显示在最后面
+        [self.totalData addObjectsFromArray:arrayM];
+        
+        //4.刷新表格
+        [self.tableView reloadData];
+        
+        //5.结束刷新后，需要去隐藏tableViewFootView
+        self.footerView.hidden = YES;
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        // 结束刷新
+        self.tableView.tableFooterView.hidden = YES;
+    }];
+}
+
+
+#pragma mark ============添加timer来实现定时的去查看新浪服务器有新的未读进来的数据============
+
+-(void) moniterServerToGetUnreadMessages{
+    //每隔5秒钟都会去请求一下当前的状态
+    //这边有一个新的问题，就是这个NSTimer每隔5秒后去调用对应的function，
+    //但是因为在主线程执行的，所以很容易被主线程给阻塞住
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:5.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        [self setRequestToGetUnreadCount];
+    }];
+    
+    //将timer添加到NSRunLoop里去,这样意味着不管主线程多忙，这个timer定时器至少都不会
+    //被阻塞掉，感觉这样才靠谱啊
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+}
+
+
+//设置未读的微博数
+-(void)setRequestToGetUnreadCount{
+    
+    NSLog(@"setupUnreadCount");
+    
+    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    SCAccount *account = [SCAccountManager account];
+    params[@"access_token"] = account.access_token;
+    params[@"uid"] = account.uid;
+    
+    [mgr GET:@"https://api.weibo.com/2/remind/unread_count.json" parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        /*把unRead的微博数转化成字符串类型的*/
+        NSString *unReadCount = [responseObject[@"status"] description];
+        if ([unReadCount isEqualToString:@"0"]) {
+            self.tabBarItem.badgeValue = nil;
+            [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+        }else{
+            self.tabBarItem.badgeValue = unReadCount;
+            [UIApplication sharedApplication].applicationIconBadgeNumber = [unReadCount integerValue];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+}
+
+
+/*
 -(void)loadRequest1{
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     NSMutableDictionary *dictM = [NSMutableDictionary dictionary];
@@ -322,7 +413,7 @@
     }];
 }
 
-/*
+
 -(void)loadRequest{
     
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
@@ -359,6 +450,9 @@
 }
 */
 
+
+#pragma mark ===================设置用户信息=========================
+
 - (void)setUpUserInfo{
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     NSString *baseURL = @"https://api.weibo.com/2/users/show.json";
@@ -382,13 +476,14 @@
     }];
 }
 
+/*
 -(void)setTestedButton{
     UIButton *randomBtn = [[UIButton alloc]initWithFrame:CGRectMake(100, 100, 200, 30)];
     randomBtn.backgroundColor = [UIColor redColor];
     [randomBtn setTitle:@"Test" forState:UIControlStateNormal];
     [randomBtn addTarget:self action:@selector(randomBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:randomBtn];
-}
+}*/
 
 /* Set the navigationItems*/
 -(void)setNavigationItems{
@@ -448,6 +543,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    
     static NSString *ID = @"CELL";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == NULL) {

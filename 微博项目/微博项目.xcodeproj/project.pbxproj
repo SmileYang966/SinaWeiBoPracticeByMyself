@@ -30,6 +30,8 @@
 		2575F42F2084CC0000D63419 /* MJFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2575F4242084CC0000D63419 /* MJFoundation.m */; };
 		2575F4302084CC0000D63419 /* NSObject+MJMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 2575F4252084CC0000D63419 /* NSObject+MJMember.m */; };
 		257A4B82205CFEF800A1697E /* SCAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 257A4B81205CFEF800A1697E /* SCAccount.m */; };
+		257BC11020A1C8FB002999E3 /* SinaWeiBoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 257BC10F20A1C8FB002999E3 /* SinaWeiBoTableViewCell.m */; };
+		257BC11320A1D9B1002999E3 /* SinaWeiBoFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 257BC11220A1D9B1002999E3 /* SinaWeiBoFrame.m */; };
 		257F355220772497008D038C /* UIWindow+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 257F355120772497008D038C /* UIWindow+Extension.m */; };
 		25837A2C2017470A0010750B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 25837A2B2017470A0010750B /* AppDelegate.m */; };
 		25837A342017470A0010750B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25837A332017470A0010750B /* Assets.xcassets */; };
@@ -121,6 +123,10 @@
 		2575F4252084CC0000D63419 /* NSObject+MJMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJMember.m"; sourceTree = "<group>"; };
 		257A4B80205CFEF800A1697E /* SCAccount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCAccount.h; sourceTree = "<group>"; };
 		257A4B81205CFEF800A1697E /* SCAccount.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCAccount.m; sourceTree = "<group>"; };
+		257BC10E20A1C8FB002999E3 /* SinaWeiBoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SinaWeiBoTableViewCell.h; sourceTree = "<group>"; };
+		257BC10F20A1C8FB002999E3 /* SinaWeiBoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SinaWeiBoTableViewCell.m; sourceTree = "<group>"; };
+		257BC11120A1D9B1002999E3 /* SinaWeiBoFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SinaWeiBoFrame.h; sourceTree = "<group>"; };
+		257BC11220A1D9B1002999E3 /* SinaWeiBoFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SinaWeiBoFrame.m; sourceTree = "<group>"; };
 		257F355020772497008D038C /* UIWindow+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIWindow+Extension.h"; sourceTree = "<group>"; };
 		257F355120772497008D038C /* UIWindow+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+Extension.m"; sourceTree = "<group>"; };
 		25837A272017470A0010750B /* 微博项目.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "微博项目.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -373,6 +379,8 @@
 				25837A4120174EE50010750B /* HomeViewController.m */,
 				25EEA327202EF4CA00F4DB90 /* HomeDropMenuTableViewController.h */,
 				25EEA328202EF4CA00F4DB90 /* HomeDropMenuTableViewController.m */,
+				257BC11120A1D9B1002999E3 /* SinaWeiBoFrame.h */,
+				257BC11220A1D9B1002999E3 /* SinaWeiBoFrame.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -385,6 +393,8 @@
 				25D9A34E208EA6F400AAE8DD /* LoadMoreFooterView.h */,
 				25D9A34F208EA6F400AAE8DD /* LoadMoreFooterView.m */,
 				25D9A351208EA73300AAE8DD /* LoadMoreFooterView.xib */,
+				257BC10E20A1C8FB002999E3 /* SinaWeiBoTableViewCell.h */,
+				257BC10F20A1C8FB002999E3 /* SinaWeiBoTableViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -679,6 +689,7 @@
 				250AF17A2018BCB8000F1C72 /* WeiBoTabBarController.m in Sources */,
 				25AFC11720834AC80083698B /* SDWebImagePrefetcher.m in Sources */,
 				25AFC10F20834AC80083698B /* MKAnnotationView+WebCache.m in Sources */,
+				257BC11320A1D9B1002999E3 /* SinaWeiBoFrame.m in Sources */,
 				25E5B1D720737A8A008FF52E /* SCAccountManager.m in Sources */,
 				2575F4262084CC0000D63419 /* MJMember.m in Sources */,
 				25AFC08D208347C00083698B /* AFNetworkReachabilityManager.m in Sources */,
@@ -719,6 +730,7 @@
 				25DB1798204A4E7700EF31AC /* NewFeaturesIntroductionsViewController.m in Sources */,
 				25AFC11120834AC80083698B /* SDWebImageDecoder.m in Sources */,
 				25C2D22B20500FE10070FCBF /* OAuthViewController.m in Sources */,
+				257BC11020A1C8FB002999E3 /* SinaWeiBoTableViewCell.m in Sources */,
 				2575F42C2084CC0000D63419 /* NSObject+MJCoding.m in Sources */,
 				25AFC08E208347C00083698B /* AFSecurityPolicy.m in Sources */,
 				25AFC12520834B040083698B /* MBProgressHUD+MJ.m in Sources */,
