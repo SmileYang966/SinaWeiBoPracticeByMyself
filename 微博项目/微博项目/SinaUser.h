@@ -13,6 +13,9 @@
 @property(nonatomic,copy) NSString *name;
 @property(nonatomic,copy) NSString *profile_image_url;
 @property(nonatomic,copy) NSString *idstr;
+@property(nonatomic,assign) int memberRank;
+@property(nonatomic,assign) int memberType;
+@property(nonatomic,assign) BOOL vip;
 
 -(instancetype)initWithDict:(NSDictionary *)dict;
 

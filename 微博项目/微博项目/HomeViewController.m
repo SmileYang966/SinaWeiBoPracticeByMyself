@@ -23,6 +23,9 @@
 
 #import "SinaWeiBoTableViewCell.h"
 
+#import "SinaWeiBoFrame.h"
+#import "SinaWeiBoTableViewCell.h"
+
 @interface HomeViewController ()<SCDropDownMenuDelegate>
 @property(nonatomic,strong)UIButton *titleBtn;
 @property(nonatomic,strong) NSMutableArray *statuses;
@@ -128,25 +131,41 @@
     //加上count后表示每次最多请求10条数据
     dictM[@"count"] = @10;
     //得到since_id，就要得到第一条微博的since_id
-    SinaStatus *firstSinaStatus = [self.totalData firstObject];
+    SinaWeiBoFrame *firstWeiBoFrame = [self.totalData firstObject];
     //需要加上这个check，因为第一次进行网络请求时,totalData还为空
-    if (firstSinaStatus) {
-        dictM[@"since_id"] = firstSinaStatus.idstr;
+    if (firstWeiBoFrame) {
+        dictM[@"since_id"] = firstWeiBoFrame.sinaStatus.idstr;
     }
     
     //发送Get请求
     [mgr GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:dictM progress:^(NSProgress * _Nonnull downloadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSLog(@"-------%@------",responseObject);
+        
         //1.遍历字典数组，取出每个字典数组转化成对象模型
         NSDictionary *dict = responseObject;
         NSArray *elements = dict[@"statuses"];
         
+        NSArray *array111 = [SinaStatus objectArrayWithKeyValuesArray:dict[@"statuses"]];
+        NSMutableArray *arrayM = [NSMutableArray array];
+        for (SinaStatus *status in array111) {
+            SinaWeiBoFrame *weiBoFrame = [[SinaWeiBoFrame alloc]init];
+            weiBoFrame.sinaStatus = status;
+            [arrayM addObject:weiBoFrame];
+        }
+        
         //2.用一个可变的数组去存储新加载进来的SinaStatus
+        /*
         NSMutableArray *arrayM = [NSMutableArray array];
         for (NSDictionary *dict in elements) {
+            //SinaWeiBoFrame里既有cell里各个元素的frame,也有sinaStatus的值(具体数据)
+            SinaWeiBoFrame *weiBoFrame = [[SinaWeiBoFrame alloc]init];
             SinaStatus *sinaStatus = [[SinaStatus alloc]initWithDict:dict];
-            [arrayM addObject:sinaStatus];
-        }
+            weiBoFrame.sinaStatus = sinaStatus;
+            [arrayM addObject:weiBoFrame];
+        }*/
+        
         //3.添加这些更新的数据到totalData的最前面,因为刷新数据后，新数据理所当然显示在最前面
         NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,arrayM.count)];
         [self.totalData insertObjects:arrayM atIndexes:indexSet];
@@ -300,11 +319,11 @@
     paramDict[@"access_token"] = account.access_token;
     paramDict[@"count"] = @10;
     
-    SinaStatus *sinaStatus = [self.totalData lastObject];
-    if (sinaStatus != NULL) {
+    SinaWeiBoFrame *weiBoFrame = [self.totalData lastObject];
+    if (weiBoFrame != NULL) {
         // 若指定此参数，则返回ID小于或等于max_id的微博，默认为0。
         // id这种数据一般都是比较大的，一般转成整数的话，最好是long long类型
-        long long maxId = sinaStatus.idstr.longLongValue - 1;
+        long long maxId = weiBoFrame.sinaStatus.idstr.longLongValue - 1;
         paramDict[@"max_id"] = @(maxId);
     }
     
@@ -314,12 +333,24 @@
         NSDictionary *dict = responseObject;
         NSArray *elements = dict[@"statuses"];
         
+        
+        NSArray *array111 = [SinaStatus objectArrayWithKeyValuesArray:dict[@"statuses"]];
+        NSMutableArray *arrayM = [NSMutableArray array];
+        for (SinaStatus *status in array111) {
+            SinaWeiBoFrame *weiBoFrame = [[SinaWeiBoFrame alloc]init];
+            weiBoFrame.sinaStatus = status;
+            [arrayM addObject:weiBoFrame];
+        }
+        
         //2.用一个可变的数组去存储新加载进来的SinaStatus
+        /*
         NSMutableArray *arrayM = [NSMutableArray array];
         for (NSDictionary *dict in elements) {
+            SinaWeiBoFrame *weiBoFrame = [[SinaWeiBoFrame alloc]init];
             SinaStatus *sinaStatus = [[SinaStatus alloc]initWithDict:dict];
-            [arrayM addObject:sinaStatus];
-        }
+            weiBoFrame.sinaStatus = sinaStatus;
+            [arrayM addObject:weiBoFrame];
+        }*/
         
         //3.将更多数据显示在最后面
         [self.totalData addObjectsFromArray:arrayM];
@@ -544,26 +575,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
-    
-    static NSString *ID = @"CELL";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if (cell == NULL) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-    }
-    
-    SinaStatus *status = self.totalData[indexPath.row];
-    SinaUser *user = status.user;
-    cell.textLabel.text = user.name;
-    cell.detailTextLabel.text =  status.text;
+    SinaWeiBoTableViewCell *cell = [SinaWeiBoTableViewCell cellWithTableView:tableView];
+    SinaWeiBoFrame *weiBoFrame = self.totalData[indexPath.row];
+    cell.weiboFrame = weiBoFrame;
     
     //通过SDWebImage去设置它的icon的image
-    NSString *imgUrl = user.profile_image_url;
-    UIImage *placeHolder = [UIImage imageNamed:@"avatar_default_small"];
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:placeHolder];
+//    NSString *imgUrl = user.profile_image_url;
+//    UIImage *placeHolder = [UIImage imageNamed:@"avatar_default_small"];
+//    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:placeHolder];
     
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    SinaWeiBoFrame *weiBoFrame = self.totalData[indexPath.row];
+    return weiBoFrame.cellHeight;
+}
 
 @end

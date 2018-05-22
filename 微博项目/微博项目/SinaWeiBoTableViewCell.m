@@ -11,6 +11,7 @@
 #import "SinaStatus.h"
 #import "SinaUser.h"
 #import "UIImageView+WebCache.h"
+#import "SinaPhoto.h"
 
 @interface SinaWeiBoTableViewCell()
 
@@ -31,6 +32,17 @@
 //配图
 @property(nonatomic,weak) UIImageView *photoView;
 
+
+//转发微博原图
+@property(nonatomic,weak) UIView *retweetView;
+
+//转发微博内容
+@property(nonatomic,weak) UILabel *retweetContent;
+
+//转发微博附带的图片
+@property(nonatomic,weak) UIImageView *retweetImgView;
+
+
 @end
 
 @implementation SinaWeiBoTableViewCell
@@ -44,53 +56,84 @@
     return weiBoCell;
 }
 
-
-- (instancetype)initWithFrame:(CGRect)frame{
-    if (self = [super initWithFrame:frame]) {
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    if (self=[super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        //初始化原创微博
+        [self setupOriginal];
         
-        /*正文view*/
-        UIView *originalView = [[UIView alloc]init];
-        [self.contentView addSubview:originalView];
-        self.originalView = originalView;
-        
-        //头像
-        UIImageView *iconImgView = [[UIImageView alloc]init];
-        [originalView addSubview:iconImgView];
-        self.iconImgView = iconImgView;
-        
-        //用户昵称
-        UILabel *sendNameLabel = [[UILabel alloc]init];
-        [originalView addSubview:sendNameLabel];
-        self.sendNameLabel = sendNameLabel;
-        
-        //会员图标
-        UIImageView *vipImgView = [[UIImageView alloc]init];
-        [originalView addSubview:vipImgView];
-        self.vipImgView = vipImgView;
-        
-        //发送时间
-        UILabel *sendTimeLabel = [[UILabel alloc]init];
-        [originalView addSubview:sendTimeLabel];
-        self.sendTimeLabel = sendTimeLabel;
-        
-        //来自于
-        UILabel *shareFromLabel = [[UILabel alloc]init];
-        [originalView addSubview:shareFromLabel];
-        self.shareFromLabel = shareFromLabel;
-
-        //微博正文
-        UILabel *contentLabel = [[UILabel alloc]init];
-        [originalView addSubview:contentLabel];
-        self.contentLabel = contentLabel;
-
-        //配图
-        UIImageView *photoView = [[UIImageView alloc]init];
-        [originalView addSubview:photoView];
-        self.photoView = photoView;
-        
+        //初始化转发微博
+        [self setupRetweetView];
     }
     return self;
 }
+
+/**初始化原创微博*/
+-(void)setupOriginal{
+    /*正文view*/
+    UIView *originalView = [[UIView alloc]init];
+    [self.contentView addSubview:originalView];
+    self.originalView = originalView;
+    
+    //头像
+    UIImageView *iconImgView = [[UIImageView alloc]init];
+    [originalView addSubview:iconImgView];
+    self.iconImgView = iconImgView;
+    
+    //用户昵称
+    UILabel *sendNameLabel = [[UILabel alloc]init];
+    [originalView addSubview:sendNameLabel];
+    self.sendNameLabel = sendNameLabel;
+    self.sendNameLabel.font = IWSinaWeiBoNameFont;
+    
+    //会员图标
+    UIImageView *vipImgView = [[UIImageView alloc]init];
+    [originalView addSubview:vipImgView];
+    self.vipImgView = vipImgView;
+    
+    //发送时间
+    UILabel *sendTimeLabel = [[UILabel alloc]init];
+    [originalView addSubview:sendTimeLabel];
+    self.sendTimeLabel = sendTimeLabel;
+    self.sendTimeLabel.font = IWSinaWeiBoNameFont;
+    
+    //来自于
+    UILabel *shareFromLabel = [[UILabel alloc]init];
+    [originalView addSubview:shareFromLabel];
+    self.shareFromLabel = shareFromLabel;
+    self.shareFromLabel.font = IWSinaWeiBoNameFont;
+    
+    //微博正文
+    UILabel *contentLabel = [[UILabel alloc]init];
+    [originalView addSubview:contentLabel];
+    self.contentLabel = contentLabel;
+    self.contentLabel.font = IWSinaWeiBoContentFont;
+    
+    //配图
+    UIImageView *photoView = [[UIImageView alloc]init];
+    [originalView addSubview:photoView];
+    self.photoView = photoView;
+}
+
+/**初始化转发微博*/
+-(void)setupRetweetView{
+    //转发微博整体
+    UIView *retweetView = [[UIView alloc]init];
+    [self.contentView addSubview:retweetView];
+    self.retweetView = retweetView;
+    
+    //转发微博正文
+    UILabel *retweetContentLabel = [[UILabel alloc]init];
+    retweetContentLabel.font = IWSinaWeiBoContentFont;
+    retweetContentLabel.numberOfLines = 0;
+    [retweetView addSubview:retweetContentLabel];
+    self.retweetContent = retweetContentLabel;
+    
+    //转发微博图片
+    UIImageView *retweetImgView = [[UIImageView alloc]init];
+    [retweetView addSubview:retweetImgView];
+    self.retweetImgView = retweetImgView;
+}
+
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -107,31 +150,89 @@
     
     //原创微博整体
     self.originalView.frame = weiboFrame.originalViewF;
+//    self.originalView.backgroundColor = [UIColor redColor];
     
     //头像
     self.iconImgView.frame = weiboFrame.iconImgViewF;
     [self.iconImgView sd_setImageWithURL:[NSURL URLWithString:user.profile_image_url] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
     
-    //会员图标
-    self.vipImgView.frame = weiboFrame.vipImgViewF;
-    self.vipImgView.image = [UIImage imageNamed:@"common_icon_membership_level1"];
-    
-    //图片
-    self.photoView.frame = weiboFrame.photoViewF;
-    
     //会员名称
     self.sendNameLabel.frame = weiboFrame.sendNameLabelF;
     self.sendNameLabel.text = user.name;
     
+    //会员图标
+    self.vipImgView.frame = weiboFrame.vipImgViewF;
+    self.vipImgView.image = [UIImage imageNamed:@"common_icon_membership_level1"];
+    if (user.vip) {
+        self.vipImgView.hidden = NO;
+        self.sendNameLabel.textColor = [UIColor orangeColor];
+    }else{
+        self.vipImgView.hidden = YES;
+        self.sendNameLabel.textColor = [UIColor blackColor];
+    }
+
     //发送时间
     self.sendTimeLabel.frame = weiboFrame.sendTimeLabelF;
+    self.sendTimeLabel.text = status.created_at;
     
     //来源
     self.shareFromLabel.frame = weiboFrame.shareFromLabelF;
+    self.shareFromLabel.text = status.source;
     
     //主体内容
     self.contentLabel.frame = weiboFrame.contentLabelF;
+    self.contentLabel.numberOfLines = 0;
     self.contentLabel.text = status.text;
+    
+    //有图片
+    if (status.pic_urls.count) {
+        self.photoView.frame = weiboFrame.photoViewF;
+//        self.photoView.backgroundColor = [UIColor lightGrayColor];
+        SinaPhoto *sinaPhoto = status.pic_urls.firstObject;
+        [self.photoView sd_setImageWithURL:[NSURL URLWithString:sinaPhoto.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
+        self.photoView.contentMode = UIViewContentModeScaleAspectFit;
+        //循环引用，所以在不用的时候，必须要hidden掉这个图片
+        self.photoView.hidden = NO;
+    }else{//没有图片
+        self.photoView.hidden = YES;
+    }
+    
+    //转发微博不为空
+    if (status.retweeted_status) {
+        /**取出转发微博*/
+        SinaStatus *retweedSinaStatus = status.retweeted_status;
+        SinaUser *retweedSinaUser = retweedSinaStatus.user;
+        
+        /**被转发微博整体*/
+        self.retweetView.frame = weiboFrame.retweetedWeiBoF;
+        self.retweetView.backgroundColor = [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:0.5];
+        
+        /**被转发微博正文*/
+        self.retweetContent.frame = weiboFrame.retweetedWeiBoContentF;
+        NSString *retweetContentText = [NSString stringWithFormat:@"%@ : %@",retweedSinaUser.name,retweedSinaStatus.text];
+        self.retweetContent.text = retweetContentText;
+        
+        /**被转发微博配图*/
+        //有图片
+        if (retweedSinaStatus.pic_urls.count) {
+            self.retweetImgView.frame = weiboFrame.retweetedWeiBoPictureF;
+//            self.retweetImgView.backgroundColor = [UIColor lightGrayColor];
+            SinaPhoto *retweetSinaPhoto = retweedSinaStatus.pic_urls.firstObject;
+            [self.retweetImgView sd_setImageWithURL:[NSURL URLWithString:retweetSinaPhoto.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
+            self.retweetImgView.contentMode = UIViewContentModeScaleAspectFit;
+            //循环引用，所以在不用的时候，必须要hidden掉这个图片
+            self.retweetImgView.hidden = NO;
+        }else{//没有图片
+            self.retweetImgView.hidden = YES;
+        }
+        
+        self.retweetView.hidden = NO;
+    }else{
+        self.retweetView.hidden = YES;
+    }
+    
+    //设置微博cell的高度
+    self.height = weiboFrame.cellHeight;
 }
 
 @end
