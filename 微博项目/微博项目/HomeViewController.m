@@ -582,7 +582,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SinaWeiBoTableViewCell *cell = [SinaWeiBoTableViewCell cellWithTableView:tableView];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     SinaWeiBoFrame *weiBoFrame = self.totalData[indexPath.row];
     cell.weiboFrame = weiBoFrame;
     

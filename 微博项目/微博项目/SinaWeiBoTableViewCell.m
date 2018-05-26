@@ -67,6 +67,16 @@
         //是灰色的，所以可以看到是全部灰色的，但是我们需要orignialview的内容为白色，所以需要进行设置
         self.backgroundColor = [UIColor clearColor];
         
+        //设置cell选择的状态为None
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        /*
+         *设置选中时的背景view
+        UIView *selectedBgView = [[UIView alloc]init];
+        selectedBgView.backgroundColor = [UIColor blueColor];
+        self.selectedBackgroundView = selectedBgView;
+        */
+        
         //初始化原创微博
         [self setupOriginal];
         
