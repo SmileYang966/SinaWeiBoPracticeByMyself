@@ -49,7 +49,7 @@
     
     NSDictionary *attributeSelected = @{NSForegroundColorAttributeName : [UIColor orangeColor]};
     [vc.tabBarItem setTitleTextAttributes:attributeSelected forState:UIControlStateSelected];
-    vc.view.backgroundColor = SCRandomColor;
+//    vc.view.backgroundColor = SCRandomColor;
     
     WeiBoNavigationController *nav = [[WeiBoNavigationController alloc]initWithRootViewController:vc];
     vc.title = title;

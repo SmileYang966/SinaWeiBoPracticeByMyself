@@ -10,6 +10,7 @@
 
 #define IWSinaWeiBoNameFont [UIFont systemFontOfSize:10]
 #define IWSinaWeiBoContentFont [UIFont systemFontOfSize:13]
+#define IWSinaWeiBoCellBorderH 10
 
 @class SinaStatus;
 
@@ -41,6 +42,10 @@
 @property(nonatomic,assign) CGRect retweetedWeiBoContentF;
 /**转发微博图片*/
 @property(nonatomic,assign) CGRect retweetedWeiBoPictureF;
+
+
+/**设置ToolBar*/
+@property(nonatomic,assign) CGRect toolBarF;
 
 
 //设置cell的高度

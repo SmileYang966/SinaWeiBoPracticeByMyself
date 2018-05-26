@@ -83,6 +83,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.tableView.backgroundColor = SCColor(211, 211, 211);
+    /*如果我们想让整个tableView和顶部有一种间距，
+     *第一种做法，就是设置tableView的contentInset
+     *第二种做法就是重写tableView中每个Cell的Y值
+    self.tableView.contentInset = UIEdgeInsetsMake(IWSinaWeiBoCellBorderH, 0, 0, 0);
+     */
+    
     // Set the naviagationItem
     [self setNavigationItems];
     
@@ -574,8 +581,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     SinaWeiBoTableViewCell *cell = [SinaWeiBoTableViewCell cellWithTableView:tableView];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     SinaWeiBoFrame *weiBoFrame = self.totalData[indexPath.row];
     cell.weiboFrame = weiBoFrame;
     

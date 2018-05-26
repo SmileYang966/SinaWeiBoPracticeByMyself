@@ -12,7 +12,7 @@
 #import "SinaStatus.h"
 
 #define IWSinaWeiBoCellBorderW 10
-#define IWSinaWeiBoCellBorderH 10
+
 
 
 @implementation SinaWeiBoFrame
@@ -58,7 +58,7 @@
     CGFloat contextX = IWSinaWeiBoCellBorderW;
     CGFloat contextY = MAX(CGRectGetMaxY(self.iconImgViewF), CGRectGetMaxY(self.sendNameLabelF)) + IWSinaWeiBoCellBorderH;
     CGFloat maxWidth = [UIScreen mainScreen].bounds.size.width - 2 * IWSinaWeiBoCellBorderW;
-    CGSize contentSize = [self getSizeByStringAndFont:sinaStatus.text font:IWSinaWeiBoContentFont constraintSize:maxWidth];
+    CGSize contentSize = [self getSizeByStringAndFont:sinaStatus.text font:IWSinaWeiBoContentFont constraintWidth:maxWidth];
     self.contentLabelF = CGRectMake(contextX, contextY, contentSize.width, contentSize.height);
     
     //设置photoView
@@ -73,7 +73,7 @@
     //原创微博整体
     //计算出原创微博整体
     CGFloat originalViewX = 0;
-    CGFloat originalViewY = 0;
+    CGFloat originalViewY = IWSinaWeiBoCellBorderH;
     CGFloat originalViewWidth = [UIScreen mainScreen].bounds.size.width;
     //计算原创微博图片的高度，需要考虑有没有配图这种情况
     CGFloat originalViewHeight = CGRectGetMaxY(self.contentLabelF) + self.photoViewF.size.height;
@@ -92,7 +92,7 @@
         CGFloat retweetedContextY = IWSinaWeiBoCellBorderH;
         
         NSString *contextString = [NSString stringWithFormat:@"%@ : %@",retweedSinaUser.name,retweedSinaStatus.text];
-        CGSize retweetedContextSize = [self getSizeByStringAndFont:contextString font:IWSinaWeiBoContentFont constraintSize:maxWidth];
+        CGSize retweetedContextSize = [self getSizeByStringAndFont:contextString font:IWSinaWeiBoContentFont constraintWidth:maxWidth];
         self.retweetedWeiBoContentF = CGRectMake(retweetedContextX, retweetedContextY, retweetedContextSize.width, retweetedContextSize.height);
         
         /**被转发微博的配图的frame*/
@@ -107,21 +107,38 @@
         
         /**被转发微博整体*/
         CGFloat retweetedWeiBoX = 0;
-        CGFloat retweetedWeiBoY = CGRectGetMaxY(self.originalViewF) + IWSinaWeiBoCellBorderH;
+        CGFloat retweetedWeiBoY = CGRectGetMaxY(self.originalViewF);
         CGFloat retweetedWeiBoWidth = [UIScreen mainScreen].bounds.size.width;
         CGFloat retweetedWeiBoHeight = retweedSinaStatus.pic_urls.count > 0 ? (CGRectGetMaxY(self.retweetedWeiBoPictureF) + IWSinaWeiBoCellBorderH) :
         (CGRectGetMaxY(self.retweetedWeiBoContentF) + IWSinaWeiBoCellBorderH);
         self.retweetedWeiBoF = CGRectMake(retweetedWeiBoX,retweetedWeiBoY,retweetedWeiBoWidth,retweetedWeiBoHeight);
         
         //设置高度
-        self.cellHeight = CGRectGetMaxY(self.retweetedWeiBoF);
+//        self.cellHeight = CGRectGetMaxY(self.retweetedWeiBoF);
     }else{
         
         //设置高度
-        self.cellHeight = CGRectGetMaxY(self.originalViewF);
+//        self.cellHeight = CGRectGetMaxY(self.originalViewF);
     }
     
-
+    //设置工具条
+    CGFloat toolBarX = 0;
+    CGFloat toolBarY = 0;
+    CGFloat toolBarWidth = 0;
+    CGFloat toolBarHeight = 0;
+    //根据有没有转发微博，来决定toolBar的Y值
+    if (sinaStatus.retweeted_status) {
+        toolBarY = CGRectGetMaxY(self.retweetedWeiBoF);
+    }else{
+        toolBarY = CGRectGetMaxY(self.originalViewF);
+    }
+    toolBarWidth = self.originalViewF.size.width;
+    toolBarHeight = 40;
+    self.toolBarF = CGRectMake(toolBarX, toolBarY, toolBarWidth, toolBarHeight);
+    
+    //最后设置cell的高度，这个时候不管有没有转发微博，toolBar的存在是肯定的，而且
+    //ToolBar肯定是在一个微博的最下面，所以我们只要取它的最大y值就可以了
+    self.cellHeight = CGRectGetMaxY(self.toolBarF);
 }
 
 -(CGSize)getSizeByStringAndFont:(NSString *)str font:(UIFont *) font{
@@ -130,7 +147,7 @@
     return size;
 }
 
--(CGSize)getSizeByStringAndFont:(NSString *)str font:(UIFont *)font constraintSize:(CGFloat)maxWidth{
+-(CGSize)getSizeByStringAndFont:(NSString *)str font:(UIFont *)font constraintWidth:(CGFloat)maxWidth{
     NSDictionary *dict = @{NSFontAttributeName : font};
     
     CGSize apprepriateSize = CGSizeMake(maxWidth, MAXFLOAT);

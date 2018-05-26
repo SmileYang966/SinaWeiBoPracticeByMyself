@@ -33,15 +33,20 @@
 @property(nonatomic,weak) UIImageView *photoView;
 
 
-//转发微博原图
+
+/**转发微博原图*/
 @property(nonatomic,weak) UIView *retweetView;
 
-//转发微博内容
+/**转发微博内容*/
 @property(nonatomic,weak) UILabel *retweetContent;
 
-//转发微博附带的图片
+/**转发微博附带的图片*/
 @property(nonatomic,weak) UIImageView *retweetImgView;
 
+
+
+/**设置工具条*/
+@property(nonatomic,weak) UIView *toolBarView;
 
 @end
 
@@ -58,11 +63,19 @@
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self=[super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        //设置cell的背景图片为透明的，那么又因为原来的HomeViewController的背景view的颜色
+        //是灰色的，所以可以看到是全部灰色的，但是我们需要orignialview的内容为白色，所以需要进行设置
+        self.backgroundColor = [UIColor clearColor];
+        
         //初始化原创微博
         [self setupOriginal];
         
         //初始化转发微博
         [self setupRetweetView];
+        
+        //初始化ToolBar
+        [self setupToolBar];
+        
     }
     return self;
 }
@@ -73,6 +86,7 @@
     UIView *originalView = [[UIView alloc]init];
     [self.contentView addSubview:originalView];
     self.originalView = originalView;
+    self.originalView.backgroundColor = [UIColor whiteColor];
     
     //头像
     UIImageView *iconImgView = [[UIImageView alloc]init];
@@ -134,6 +148,13 @@
     self.retweetImgView = retweetImgView;
 }
 
+/**设置工具条*/
+- (void)setupToolBar{
+    UIView *toolBar = [[UIView alloc]init];
+    [self.contentView addSubview:toolBar];
+    toolBar.backgroundColor = [UIColor blueColor];
+    self.toolBarView = toolBar;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -231,8 +252,17 @@
         self.retweetView.hidden = YES;
     }
     
+    /**设置工具条的frame*/
+    self.toolBarView.frame = weiboFrame.toolBarF;
+    
     //设置微博cell的高度
     self.height = weiboFrame.cellHeight;
 }
+
+/*第二种做法就是重新设置cell的y值
+- (void)setFrame:(CGRect)frame{
+    frame.origin.y += IWSinaWeiBoCellBorderH;
+    [super setFrame:frame];
+}*/
 
 @end
