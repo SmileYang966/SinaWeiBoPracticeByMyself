@@ -33,6 +33,15 @@
 /**转发微博，其实又相当于一条微博*/
 @property(nonatomic,strong) SinaStatus *retweeted_status;
 
+/**转发数*/
+@property(nonatomic,assign) int reposts_count;
+
+/**评论数*/
+@property(nonatomic,assign) int comments_count;
+
+/**点赞数*/
+@property(nonatomic,assign) int attitudes_count;
+
 -(instancetype)initWithDict:(NSDictionary *)dict;
 
 

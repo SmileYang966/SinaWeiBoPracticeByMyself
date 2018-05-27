@@ -265,7 +265,9 @@
     }
     
     /**设置工具条的frame*/
+    self.toolBarView.sinaStatus = status;
     self.toolBarView.frame = weiboFrame.toolBarF;
+    
     
     //设置微博cell的高度
     self.height = weiboFrame.cellHeight;

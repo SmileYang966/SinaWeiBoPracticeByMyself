@@ -7,10 +7,16 @@
 //
 
 #import "SCToolBarView.h"
+#import "SinaStatus.h"
 
 @interface SCToolBarView()
 @property(nonatomic,strong) NSMutableArray *btnArrayM;
 @property(nonatomic,strong) NSMutableArray *divideLineArray;
+
+@property(nonatomic,strong) UIButton *forwardBtn;
+@property(nonatomic,strong) UIButton *commentBtn;
+@property(nonatomic,strong) UIButton *attitudeBtn;
+
 @end
 
 
@@ -38,16 +44,18 @@
 
 -(void)setUpButtons{
     //添加3个button，分别是转发按钮、评论按钮以及点赞按钮
-    UIButton *forwardBtn = [self addButtonWithTitle:@"转发" iconName:@"timeline_icon_retweet"];
-    UIButton *commentBtn = [self addButtonWithTitle:@"评论" iconName:@"timeline_icon_comment"];
-    UIButton *zanBtn = [self addButtonWithTitle:@"赞" iconName:@"timeline_icon_unlike"];
     
-    [self addSubview:forwardBtn];
-    [self addSubview:commentBtn];
-    [self addSubview:zanBtn];
+    self.forwardBtn = [[UIButton alloc]init];
+    [self addSubview:self.forwardBtn];
+    
+    self.commentBtn = [[UIButton alloc]init];
+    [self addSubview:self.commentBtn];
+    
+    self.attitudeBtn = [[UIButton alloc]init];
+    [self addSubview:self.attitudeBtn];
     
     self.btnArrayM = [NSMutableArray array];
-    [self.btnArrayM addObjectsFromArray:@[forwardBtn,commentBtn,zanBtn]];
+    [self.btnArrayM addObjectsFromArray:@[self.forwardBtn,self.commentBtn,self.attitudeBtn]];
 }
 
 -(void)setUpDivideLine{
@@ -58,20 +66,6 @@
         [self addSubview:imgView];
         [self.divideLineArray addObject:imgView];
     }
-}
-
-
--(UIButton *)addButtonWithTitle:(NSString *)title iconName:(NSString *)iconName{
-    UIButton *btn = [[UIButton alloc]init];
-    [btn setTitle:title forState:UIControlStateNormal];
-    
-    NSDictionary *attributeDict = @{
-                                    NSFontAttributeName : [UIFont systemFontOfSize:12.0f]
-                                    };
-    NSAttributedString *attributeStr = [[NSAttributedString alloc]initWithString:title attributes:attributeDict];
-    [btn setAttributedTitle:attributeStr forState:UIControlStateNormal];
-    [btn setImage:[UIImage imageNamed:iconName] forState:UIControlStateNormal];
-    return btn;
 }
 
 /*layoutSubViews阶段去遍历所有的ToolBar，并且设置相应的frame,一般情况下只有在
@@ -107,6 +101,48 @@
         divideLineX = (width * divideLineIndex)-divideLineWidth;
         divideImgView.frame = CGRectMake(divideLineX, divideLineY, divideLineWidth, divideLineHeight);
     }
+}
+
+- (void)setSinaStatus:(SinaStatus *)sinaStatus{
+    _sinaStatus = sinaStatus;
+    
+    //设置评论数
+    NSString *commentBtnTitle;
+    if (!sinaStatus.comments_count) {
+        commentBtnTitle = @"评论";
+    }else{
+        commentBtnTitle = [NSString stringWithFormat:@" %d",sinaStatus.comments_count];
+    }
+    [self setValuesWithButton:self.commentBtn title:commentBtnTitle iconName:@"timeline_icon_retweet"];
+    
+
+    //设置转发数
+    NSString *forwradBtnTitle;
+    if (!sinaStatus.reposts_count) {
+        forwradBtnTitle = @"转发";
+    }else{
+        forwradBtnTitle = [NSString stringWithFormat:@" %d",sinaStatus.reposts_count];
+    }
+    [self setValuesWithButton:self.forwardBtn title:forwradBtnTitle iconName:@"timeline_icon_comment"];
+    
+    //设置点赞数
+    NSString *attitudeBtnTitle;
+    if (!sinaStatus.attitudes_count) {
+        attitudeBtnTitle = @"赞";
+    }else{
+        attitudeBtnTitle = [NSString stringWithFormat:@" %d",sinaStatus.attitudes_count];
+    }
+    [self setValuesWithButton:self.attitudeBtn title:attitudeBtnTitle iconName:@"timeline_icon_unlike"];
+}
+
+-(void)setValuesWithButton:(UIButton *)button title:(NSString *)title iconName:(NSString *)iconName{
+    [button setTitle:title forState:UIControlStateNormal];
+    NSDictionary *attributeDict = @{
+                                    NSFontAttributeName : [UIFont systemFontOfSize:12.0f]
+                                    };
+    NSAttributedString *attributeStr = [[NSAttributedString alloc]initWithString:title attributes:attributeDict];
+    [button setAttributedTitle:attributeStr forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:iconName] forState:UIControlStateNormal];
 }
 
 @end
