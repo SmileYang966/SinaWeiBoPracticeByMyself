@@ -13,6 +13,8 @@
 #import "UIImageView+WebCache.h"
 #import "SinaPhoto.h"
 
+#import "SCToolBarView.h"
+
 @interface SinaWeiBoTableViewCell()
 
 /************************原创微博*************************/
@@ -46,7 +48,7 @@
 
 
 /**设置工具条*/
-@property(nonatomic,weak) UIView *toolBarView;
+@property(nonatomic,weak) SCToolBarView *toolBarView;
 
 @end
 
@@ -69,6 +71,7 @@
         
         //设置cell选择的状态为None
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         
         /*
          *设置选中时的背景view
@@ -160,9 +163,8 @@
 
 /**设置工具条*/
 - (void)setupToolBar{
-    UIView *toolBar = [[UIView alloc]init];
+    SCToolBarView *toolBar = [SCToolBarView toolBarView];
     [self.contentView addSubview:toolBar];
-    toolBar.backgroundColor = [UIColor blueColor];
     self.toolBarView = toolBar;
 }
 

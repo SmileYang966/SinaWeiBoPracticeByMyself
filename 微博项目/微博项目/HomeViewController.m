@@ -84,6 +84,9 @@
     // Do any additional setup after loading the view.
     
     self.tableView.backgroundColor = SCColor(211, 211, 211);
+    //去除tableViwecell之间的分隔线
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     /*如果我们想让整个tableView和顶部有一种间距，
      *第一种做法，就是设置tableView的contentInset
      *第二种做法就是重写tableView中每个Cell的Y值

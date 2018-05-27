@@ -70,6 +70,7 @@
 		25AFC12420834B040083698B /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AFC11F20834B040083698B /* MBProgressHUD.m */; };
 		25AFC12520834B040083698B /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AFC12220834B040083698B /* MBProgressHUD+MJ.m */; };
 		25AFC12620834B040083698B /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 25AFC12320834B040083698B /* MBProgressHUD.bundle */; };
+		25BE779A20B95F19003B1D49 /* SCToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BE779920B95F19003B1D49 /* SCToolBarView.m */; };
 		25C2D22B20500FE10070FCBF /* OAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C2D22A20500FE10070FCBF /* OAuthViewController.m */; };
 		25D9A350208EA6F400AAE8DD /* LoadMoreFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25D9A34F208EA6F400AAE8DD /* LoadMoreFooterView.m */; };
 		25D9A352208EA73300AAE8DD /* LoadMoreFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25D9A351208EA73300AAE8DD /* LoadMoreFooterView.xib */; };
@@ -205,6 +206,8 @@
 		25AFC12120834B040083698B /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		25AFC12220834B040083698B /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
 		25AFC12320834B040083698B /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
+		25BE779820B95F19003B1D49 /* SCToolBarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCToolBarView.h; sourceTree = "<group>"; };
+		25BE779920B95F19003B1D49 /* SCToolBarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCToolBarView.m; sourceTree = "<group>"; };
 		25C2D22920500FE10070FCBF /* OAuthViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OAuthViewController.h; sourceTree = "<group>"; };
 		25C2D22A20500FE10070FCBF /* OAuthViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OAuthViewController.m; sourceTree = "<group>"; };
 		25D9A34E208EA6F400AAE8DD /* LoadMoreFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoadMoreFooterView.h; sourceTree = "<group>"; };
@@ -400,6 +403,8 @@
 				25D9A351208EA73300AAE8DD /* LoadMoreFooterView.xib */,
 				257BC10E20A1C8FB002999E3 /* SinaWeiBoTableViewCell.h */,
 				257BC10F20A1C8FB002999E3 /* SinaWeiBoTableViewCell.m */,
+				25BE779820B95F19003B1D49 /* SCToolBarView.h */,
+				25BE779920B95F19003B1D49 /* SCToolBarView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -705,6 +710,7 @@
 				250F0692201F435000D2C63B /* UIView+UIView_Frame.m in Sources */,
 				25AFC11A20834AC80083698B /* NSData+ImageContentType.m in Sources */,
 				250AF17D2018BF95000F1C72 /* WeiBoNavigationController.m in Sources */,
+				25BE779A20B95F19003B1D49 /* SCToolBarView.m in Sources */,
 				25837A4820174F100010750B /* DiscoverViewController.m in Sources */,
 				25AFC08B208347C00083698B /* AFURLSessionManager.m in Sources */,
 				2575F4302084CC0000D63419 /* NSObject+MJMember.m in Sources */,

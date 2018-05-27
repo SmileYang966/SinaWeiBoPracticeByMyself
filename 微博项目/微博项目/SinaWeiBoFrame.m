@@ -128,9 +128,9 @@
     CGFloat toolBarHeight = 0;
     //根据有没有转发微博，来决定toolBar的Y值
     if (sinaStatus.retweeted_status) {
-        toolBarY = CGRectGetMaxY(self.retweetedWeiBoF);
+        toolBarY = CGRectGetMaxY(self.retweetedWeiBoF) + 1;
     }else{
-        toolBarY = CGRectGetMaxY(self.originalViewF);
+        toolBarY = CGRectGetMaxY(self.originalViewF) + 1;
     }
     toolBarWidth = self.originalViewF.size.width;
     toolBarHeight = 40;
