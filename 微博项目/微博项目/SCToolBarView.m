@@ -106,12 +106,27 @@
 - (void)setSinaStatus:(SinaStatus *)sinaStatus{
     _sinaStatus = sinaStatus;
     
+    /** Tested Data : used to test the count which more than the 10000
+    sinaStatus.comments_count = 123656;
+    sinaStatus.reposts_count = 2343732;
+    sinaStatus.attitudes_count = 43325532;
+     */
+    
     //设置评论数
     NSString *commentBtnTitle;
     if (!sinaStatus.comments_count) {
         commentBtnTitle = @"评论";
     }else{
-        commentBtnTitle = [NSString stringWithFormat:@" %d",sinaStatus.comments_count];
+        if (sinaStatus.comments_count>10000) {
+            /* 下面这种计算小数的方法是我自己写的，但其实没必要，因为ios在NSString里已经有了很好的封装
+             commentBtnTitle = [self calculatedStatisticValue:sinaStatus.comments_count];
+            */
+            /**这种方式用来保存一位小数是最简单的方法，之前一直不知道，反而用了上面那种很复杂的方法*/
+            double wan = sinaStatus.comments_count / 10000.0;
+            commentBtnTitle = [NSString stringWithFormat:@"%.1f万",wan];
+        }else{
+            commentBtnTitle = [NSString stringWithFormat:@" %d",sinaStatus.comments_count];
+        }
     }
     [self setValuesWithButton:self.commentBtn title:commentBtnTitle iconName:@"timeline_icon_retweet"];
     
@@ -121,7 +136,12 @@
     if (!sinaStatus.reposts_count) {
         forwradBtnTitle = @"转发";
     }else{
-        forwradBtnTitle = [NSString stringWithFormat:@" %d",sinaStatus.reposts_count];
+        if (sinaStatus.reposts_count>10000) {
+            double wan = sinaStatus.reposts_count / 10000.0;
+            forwradBtnTitle = [NSString stringWithFormat:@"%.1f万",wan];
+        }else{
+            forwradBtnTitle = [NSString stringWithFormat:@" %d",sinaStatus.reposts_count];
+        }
     }
     [self setValuesWithButton:self.forwardBtn title:forwradBtnTitle iconName:@"timeline_icon_comment"];
     
@@ -130,7 +150,12 @@
     if (!sinaStatus.attitudes_count) {
         attitudeBtnTitle = @"赞";
     }else{
-        attitudeBtnTitle = [NSString stringWithFormat:@" %d",sinaStatus.attitudes_count];
+        if (sinaStatus.attitudes_count>10000) {
+            double wan = sinaStatus.attitudes_count / 10000.0;
+            attitudeBtnTitle = [NSString stringWithFormat:@"%.1f万",wan];
+        }else{
+            attitudeBtnTitle = [NSString stringWithFormat:@" %d",sinaStatus.attitudes_count];
+        }
     }
     [self setValuesWithButton:self.attitudeBtn title:attitudeBtnTitle iconName:@"timeline_icon_unlike"];
 }
@@ -143,6 +168,23 @@
     NSAttributedString *attributeStr = [[NSAttributedString alloc]initWithString:title attributes:attributeDict];
     [button setAttributedTitle:attributeStr forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:iconName] forState:UIControlStateNormal];
+}
+
+/**当统计数目大于1万时，只需写笼统的数据,例如1.3万、12.5万
+ * 现在发现根本上用不着自己写这个方法，因为NSString关于format已经有了很好的封装
+ */
+-(NSString *)calculatedStatisticValue:(int)statisticValue{
+    if (statisticValue>10000) {
+        int tempIntValue = statisticValue / 10000;
+        int decimal = statisticValue % 10000;
+        int FourthBitValue = decimal / 1000;
+        int ThirdBitValue = decimal % 1000 / 100;
+        if (ThirdBitValue >=5) {
+            FourthBitValue++;
+        }
+        return [NSString stringWithFormat:@"%d.%d万",tempIntValue,FourthBitValue];
+    }
+    return @"";
 }
 
 @end
