@@ -58,8 +58,8 @@
     NSDateComponents *componentsForNow = [calendar components:unit fromDate:now];
      */
     
-    if ([self isThisYear:createDate]) {//今年
-        if ([self isToday:createDate]) {
+    if ([createDate isThisYear]) {//今年
+        if ([createDate isToday]) {//今天
             if(components.hour >= 1){
                 return [NSString stringWithFormat:@"%d小时前",(int)components.hour];
             }else{//小时1小时发的
@@ -69,7 +69,7 @@
                     return @"刚刚";
                 }
             }
-        }else if([self isYesterday:createDate]){
+        }else if([createDate isYesterday]){//昨天
             fmt.dateFormat = @"昨天 HH:mm";
             return [fmt stringFromDate:createDate];
         }else{//今年除了今天、昨天的其它天
@@ -84,42 +84,6 @@
     return @"2017-01-02";
 }
 
-//是否为今年
--(BOOL)isThisYear:(NSDate *)createDate{
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *createDateComponent = [calendar components:NSCalendarUnitYear fromDate:createDate];
-    NSDateComponents *currentDateComponent = [calendar components:NSCalendarUnitYear fromDate:[NSDate date]];
-    return createDateComponent.year == currentDateComponent.year;
-}
-
-//是否为昨天
--(BOOL)isYesterday:(NSDate *)createDate{
-    //2018-05-31 14:05:23 -> 2018-05-31 00:00:00
-    //2018-06-01 08:09:05 -> 2018-06-01 00:00:00
-    NSDateFormatter *format = [[NSDateFormatter alloc]init];
-    format.dateFormat = @"yyyy-MM-dd";
-    NSString *createDateStr = [format stringFromDate:createDate];
-    NSString *currentDateStr = [format stringFromDate:[NSDate date]];
-    
-    NSDate *createDateValue = [format dateFromString:createDateStr];
-    NSDate *currentDateValue = [format dateFromString:currentDateStr];
-    
-    
-    NSCalendar *calender = [NSCalendar currentCalendar];
-    NSDateComponents *compoents = [calender components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:createDate toDate:currentDateValue options:0];
-    
-    return compoents.year==0 && compoents.month==0 && compoents.day==1;
-}
-
-//是否为今天
--(BOOL)isToday:(NSDate *)createDate{
-    NSDateFormatter *format = [[NSDateFormatter alloc]init];
-    format.dateFormat = @"yyyy-MM-dd";
-    NSString *createDateStr = [format stringFromDate:createDate];
-    NSString *currentDateStr = [format stringFromDate:[NSDate date]];
-    
-    return  [createDateStr isEqualToString:currentDateStr];
-}
 
 //下面这个用不到了，因为在用了"MJExtension.h"方法后，就不需要自己做字典转模型了
 -(instancetype)initWithDict:(NSDictionary *)dict{

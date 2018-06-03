@@ -34,6 +34,7 @@
 		257BC11020A1C8FB002999E3 /* SinaWeiBoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 257BC10F20A1C8FB002999E3 /* SinaWeiBoTableViewCell.m */; };
 		257BC11320A1D9B1002999E3 /* SinaWeiBoFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 257BC11220A1D9B1002999E3 /* SinaWeiBoFrame.m */; };
 		257F355220772497008D038C /* UIWindow+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 257F355120772497008D038C /* UIWindow+Extension.m */; };
+		2582619A20C3B8DD00AFA513 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 2582619920C3B8DD00AFA513 /* NSDate+Extension.m */; };
 		25837A2C2017470A0010750B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 25837A2B2017470A0010750B /* AppDelegate.m */; };
 		25837A342017470A0010750B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25837A332017470A0010750B /* Assets.xcassets */; };
 		25837A372017470A0010750B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25837A352017470A0010750B /* LaunchScreen.storyboard */; };
@@ -133,6 +134,8 @@
 		257BC11220A1D9B1002999E3 /* SinaWeiBoFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SinaWeiBoFrame.m; sourceTree = "<group>"; };
 		257F355020772497008D038C /* UIWindow+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIWindow+Extension.h"; sourceTree = "<group>"; };
 		257F355120772497008D038C /* UIWindow+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+Extension.m"; sourceTree = "<group>"; };
+		2582619820C3B8DD00AFA513 /* NSDate+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
+		2582619920C3B8DD00AFA513 /* NSDate+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		25837A272017470A0010750B /* 微博项目.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "微博项目.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		25837A2A2017470A0010750B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		25837A2B2017470A0010750B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -277,6 +280,7 @@
 		250F067F201F38E600D2C63B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				2582619720C3B8A200AFA513 /* Category */,
 				257A4B83205D146500A1697E /* Lib */,
 				25C2D22820500FCA0070FCBF /* OAuth */,
 				25DB1795204A4E2D00EF31AC /* NewFeatures */,
@@ -288,12 +292,6 @@
 				250AF1792018BCB8000F1C72 /* WeiBoTabBarController.m */,
 				250AF17B2018BF95000F1C72 /* WeiBoNavigationController.h */,
 				250AF17C2018BF95000F1C72 /* WeiBoNavigationController.m */,
-				250F0690201F435000D2C63B /* UIView+UIView_Frame.h */,
-				250F0691201F435000D2C63B /* UIView+UIView_Frame.m */,
-				250F0693201F56EB00D2C63B /* UIBarButtonItem+CreateUIBarButtonItem.h */,
-				250F0694201F56EB00D2C63B /* UIBarButtonItem+CreateUIBarButtonItem.m */,
-				257F355020772497008D038C /* UIWindow+Extension.h */,
-				257F355120772497008D038C /* UIWindow+Extension.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -481,6 +479,21 @@
 				25AFC07B208347BF0083698B /* AFNetworking */,
 			);
 			path = Lib;
+			sourceTree = "<group>";
+		};
+		2582619720C3B8A200AFA513 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				250F0690201F435000D2C63B /* UIView+UIView_Frame.h */,
+				250F0691201F435000D2C63B /* UIView+UIView_Frame.m */,
+				250F0693201F56EB00D2C63B /* UIBarButtonItem+CreateUIBarButtonItem.h */,
+				250F0694201F56EB00D2C63B /* UIBarButtonItem+CreateUIBarButtonItem.m */,
+				257F355020772497008D038C /* UIWindow+Extension.h */,
+				257F355120772497008D038C /* UIWindow+Extension.m */,
+				2582619820C3B8DD00AFA513 /* NSDate+Extension.h */,
+				2582619920C3B8DD00AFA513 /* NSDate+Extension.m */,
+			);
+			path = Category;
 			sourceTree = "<group>";
 		};
 		25837A1E2017470A0010750B = {
@@ -707,6 +720,7 @@
 				250F0695201F56EB00D2C63B /* UIBarButtonItem+CreateUIBarButtonItem.m in Sources */,
 				25AFC12420834B040083698B /* MBProgressHUD.m in Sources */,
 				25AFC11C20834AC80083698B /* UIView+WebCacheOperation.m in Sources */,
+				2582619A20C3B8DD00AFA513 /* NSDate+Extension.m in Sources */,
 				250F0692201F435000D2C63B /* UIView+UIView_Frame.m in Sources */,
 				25AFC11A20834AC80083698B /* NSData+ImageContentType.m in Sources */,
 				250AF17D2018BF95000F1C72 /* WeiBoNavigationController.m in Sources */,
