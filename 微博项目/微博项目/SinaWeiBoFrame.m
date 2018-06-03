@@ -46,7 +46,7 @@
     CGFloat sendTimeX = nameX;
     CGFloat sendTimeY = CGRectGetMaxY(self.sendNameLabelF) + IWSinaWeiBoCellBorderH;
     CGSize sendTimeSize = [self getSizeByStringAndFont:sinaStatus.created_at font:IWSinaWeiBoNameFont];
-    self.sendTimeLabelF = CGRectMake(sendTimeX, sendTimeY, sendTimeSize.width+15, sendTimeSize.height);
+    self.sendTimeLabelF = CGRectMake(sendTimeX, sendTimeY, sendTimeSize.width, sendTimeSize.height);
     
     //来自于
     CGFloat sourceX = CGRectGetMaxX(self.sendTimeLabelF) + IWSinaWeiBoCellBorderW;

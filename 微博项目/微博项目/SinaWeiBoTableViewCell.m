@@ -205,8 +205,10 @@
     }
 
     //发送时间
-    self.sendTimeLabel.frame = weiboFrame.sendTimeLabelF;
+    CGRect sendTimeLabelSaved = weiboFrame.sendTimeLabelF;
     self.sendTimeLabel.text = status.created_at;
+    CGSize sendTimeLabelSize = [status.created_at getSizeByFont:IWSinaWeiBoNameFont];
+    self.sendTimeLabel.frame = CGRectMake(sendTimeLabelSaved.origin.x, sendTimeLabelSaved.origin.y, sendTimeLabelSize.width, sendTimeLabelSize.height);
     
     //来源
     self.shareFromLabel.frame = weiboFrame.shareFromLabelF;
