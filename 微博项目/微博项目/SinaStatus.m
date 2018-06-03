@@ -84,6 +84,20 @@
     return @"2017-01-02";
 }
 
+//重新它的setSource方法，能保证不会被重复多次调用
+//source = "<a href=\"http://app.weibo.com/t/feed/3auC5p\" rel=\"nofollow\">\U76ae\U76ae\U65f6\U5149\U673a</a>";
+//source = "<a href=\"http://app.weibo.com/t/feed/6vtZb0\" rel=\"nofollow\">\U5fae\U535a weibo.com</a>";
+- (void)setSource:(NSString *)source{
+    //注意有可能souce就是为空，所以千万注意要加上这个check才行
+    if (source.length) {
+        NSUInteger location = [source rangeOfString:@">"].location + 1;
+        NSUInteger length = [source rangeOfString:@"</"].location - location;
+        NSRange range = NSMakeRange(location, length);
+        _source = [NSString stringWithFormat:@"来自: %@",[source substringWithRange:range]];
+    }else{
+        _source = source;
+    }
+}
 
 //下面这个用不到了，因为在用了"MJExtension.h"方法后，就不需要自己做字典转模型了
 -(instancetype)initWithDict:(NSDictionary *)dict{
