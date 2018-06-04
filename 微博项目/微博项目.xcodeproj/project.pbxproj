@@ -79,6 +79,7 @@
 		25E5B1D720737A8A008FF52E /* SCAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 25E5B1D620737A8A008FF52E /* SCAccountManager.m */; };
 		25EEA326202ECD6E00F4DB90 /* SCDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 25EEA325202ECD6E00F4DB90 /* SCDropdownMenu.m */; };
 		25EEA329202EF4CA00F4DB90 /* HomeDropMenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25EEA328202EF4CA00F4DB90 /* HomeDropMenuTableViewController.m */; };
+		25F363C120C5F55800D1E649 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F363C020C5F55800D1E649 /* NSString+Extension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -224,6 +225,8 @@
 		25EEA325202ECD6E00F4DB90 /* SCDropdownMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCDropdownMenu.m; sourceTree = "<group>"; };
 		25EEA327202EF4CA00F4DB90 /* HomeDropMenuTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeDropMenuTableViewController.h; sourceTree = "<group>"; };
 		25EEA328202EF4CA00F4DB90 /* HomeDropMenuTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeDropMenuTableViewController.m; sourceTree = "<group>"; };
+		25F363BF20C5F55800D1E649 /* NSString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
+		25F363C020C5F55800D1E649 /* NSString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -484,6 +487,8 @@
 		2582619720C3B8A200AFA513 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				25F363BF20C5F55800D1E649 /* NSString+Extension.h */,
+				25F363C020C5F55800D1E649 /* NSString+Extension.m */,
 				250F0690201F435000D2C63B /* UIView+UIView_Frame.h */,
 				250F0691201F435000D2C63B /* UIView+UIView_Frame.m */,
 				250F0693201F56EB00D2C63B /* UIBarButtonItem+CreateUIBarButtonItem.h */,
@@ -758,6 +763,7 @@
 				25C2D22B20500FE10070FCBF /* OAuthViewController.m in Sources */,
 				257BC11020A1C8FB002999E3 /* SinaWeiBoTableViewCell.m in Sources */,
 				2575F42C2084CC0000D63419 /* NSObject+MJCoding.m in Sources */,
+				25F363C120C5F55800D1E649 /* NSString+Extension.m in Sources */,
 				25AFC08E208347C00083698B /* AFSecurityPolicy.m in Sources */,
 				25AFC12520834B040083698B /* MBProgressHUD+MJ.m in Sources */,
 				2575F4272084CC0000D63419 /* NSObject+MJKeyValue.m in Sources */,
