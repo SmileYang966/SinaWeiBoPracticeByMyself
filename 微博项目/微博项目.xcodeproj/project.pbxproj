@@ -80,6 +80,7 @@
 		25EEA326202ECD6E00F4DB90 /* SCDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 25EEA325202ECD6E00F4DB90 /* SCDropdownMenu.m */; };
 		25EEA329202EF4CA00F4DB90 /* HomeDropMenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25EEA328202EF4CA00F4DB90 /* HomeDropMenuTableViewController.m */; };
 		25F363C120C5F55800D1E649 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F363C020C5F55800D1E649 /* NSString+Extension.m */; };
+		25F363C520C5F83300D1E649 /* SinaWeiBoPhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F363C420C5F83300D1E649 /* SinaWeiBoPhotosView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -227,6 +228,8 @@
 		25EEA328202EF4CA00F4DB90 /* HomeDropMenuTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeDropMenuTableViewController.m; sourceTree = "<group>"; };
 		25F363BF20C5F55800D1E649 /* NSString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
 		25F363C020C5F55800D1E649 /* NSString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
+		25F363C320C5F83300D1E649 /* SinaWeiBoPhotosView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaWeiBoPhotosView.h; sourceTree = "<group>"; };
+		25F363C420C5F83300D1E649 /* SinaWeiBoPhotosView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinaWeiBoPhotosView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -397,6 +400,8 @@
 		250F068B201F395B00D2C63B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				25F363C320C5F83300D1E649 /* SinaWeiBoPhotosView.h */,
+				25F363C420C5F83300D1E649 /* SinaWeiBoPhotosView.m */,
 				259BAA542078876700C47213 /* TitleButton.h */,
 				259BAA552078876700C47213 /* TitleButton.m */,
 				25D9A34E208EA6F400AAE8DD /* LoadMoreFooterView.h */,
@@ -734,6 +739,7 @@
 				25AFC08B208347C00083698B /* AFURLSessionManager.m in Sources */,
 				2575F4302084CC0000D63419 /* NSObject+MJMember.m in Sources */,
 				25EEA326202ECD6E00F4DB90 /* SCDropdownMenu.m in Sources */,
+				25F363C520C5F83300D1E649 /* SinaWeiBoPhotosView.m in Sources */,
 				2575F42E2084CC0000D63419 /* MJArgument.m in Sources */,
 				2575F4292084CC0000D63419 /* MJType.m in Sources */,
 				257A4B82205CFEF800A1697E /* SCAccount.m in Sources */,
@@ -919,6 +925,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/微博项目/Main/WeiBo-PrefixHeader.pch";
 				INFOPLIST_FILE = "微博项目/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "Evan.----";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -935,6 +942,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/微博项目/Main/WeiBo-PrefixHeader.pch";
 				INFOPLIST_FILE = "微博项目/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "Evan.----";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
