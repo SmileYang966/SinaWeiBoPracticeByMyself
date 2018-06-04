@@ -31,7 +31,7 @@
 /**微博正文*/
 @property(nonatomic,assign) CGRect contentLabelF;
 /**配图*/
-@property(nonatomic,assign) CGRect photoViewF;
+@property(nonatomic,assign) CGRect photosViewF;
 /**原创微博整体*/
 @property(nonatomic,assign) CGRect originalViewF;
 
@@ -41,7 +41,7 @@
 /**转发微博整体*/
 @property(nonatomic,assign) CGRect retweetedWeiBoContentF;
 /**转发微博图片*/
-@property(nonatomic,assign) CGRect retweetedWeiBoPictureF;
+@property(nonatomic,assign) CGRect retweetedWeiBoPicturesF;
 
 
 /**设置ToolBar*/

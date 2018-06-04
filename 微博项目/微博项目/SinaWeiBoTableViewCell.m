@@ -14,6 +14,7 @@
 #import "SinaPhoto.h"
 
 #import "SCToolBarView.h"
+#import "SinaWeiBoPhotosView.h"
 
 @interface SinaWeiBoTableViewCell()
 
@@ -32,8 +33,7 @@
 //微博正文
 @property(nonatomic,weak) UILabel *contentLabel;
 //配图
-@property(nonatomic,weak) UIImageView *photoView;
-
+@property(nonatomic,weak) SinaWeiBoPhotosView *photosView;
 
 
 /**转发微博原图*/
@@ -43,8 +43,7 @@
 @property(nonatomic,weak) UILabel *retweetContent;
 
 /**转发微博附带的图片*/
-@property(nonatomic,weak) UIImageView *retweetImgView;
-
+@property(nonatomic,weak) SinaWeiBoPhotosView *retweetImgsView;
 
 
 /**设置工具条*/
@@ -71,7 +70,6 @@
         
         //设置cell选择的状态为None
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        
         
         /*
          *设置选中时的背景view
@@ -136,9 +134,9 @@
     self.contentLabel.font = IWSinaWeiBoContentFont;
     
     //配图
-    UIImageView *photoView = [[UIImageView alloc]init];
-    [originalView addSubview:photoView];
-    self.photoView = photoView;
+    SinaWeiBoPhotosView *photosView = [[SinaWeiBoPhotosView alloc]init];
+    [originalView addSubview:photosView];
+    self.photosView = photosView;
 }
 
 /**初始化转发微博*/
@@ -156,9 +154,9 @@
     self.retweetContent = retweetContentLabel;
     
     //转发微博图片
-    UIImageView *retweetImgView = [[UIImageView alloc]init];
-    [retweetView addSubview:retweetImgView];
-    self.retweetImgView = retweetImgView;
+    SinaWeiBoPhotosView *retweetImgsView = [[SinaWeiBoPhotosView alloc]init];
+    [retweetView addSubview:retweetImgsView];
+    self.retweetImgsView = retweetImgsView;
 }
 
 /**设置工具条*/
@@ -221,15 +219,18 @@
     
     //有图片
     if (status.pic_urls.count) {
-        self.photoView.frame = weiboFrame.photoViewF;
+        self.photosView.frame = weiboFrame.photosViewF;
 //        self.photoView.backgroundColor = [UIColor lightGrayColor];
-        SinaPhoto *sinaPhoto = status.pic_urls.firstObject;
-        [self.photoView sd_setImageWithURL:[NSURL URLWithString:sinaPhoto.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
-        self.photoView.contentMode = UIViewContentModeScaleAspectFit;
+//        SinaPhoto *sinaPhoto = status.pic_urls.firstObject;
+//        [self.photosView sd_setImageWithURL:[NSURL URLWithString:sinaPhoto.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
+//        self.photoView.contentMode = UIViewContentModeScaleAspectFit;
+        
+#warning Todo
+        
         //循环引用，所以在不用的时候，必须要hidden掉这个图片
-        self.photoView.hidden = NO;
+        self.photosView.hidden = NO;
     }else{//没有图片
-        self.photoView.hidden = YES;
+        self.photosView.hidden = YES;
     }
     
     //转发微博不为空
@@ -250,15 +251,18 @@
         /**被转发微博配图*/
         //有图片
         if (retweedSinaStatus.pic_urls.count) {
-            self.retweetImgView.frame = weiboFrame.retweetedWeiBoPictureF;
+            self.retweetImgsView.frame = weiboFrame.retweetedWeiBoPicturesF;
 //            self.retweetImgView.backgroundColor = [UIColor lightGrayColor];
-            SinaPhoto *retweetSinaPhoto = retweedSinaStatus.pic_urls.firstObject;
-            [self.retweetImgView sd_setImageWithURL:[NSURL URLWithString:retweetSinaPhoto.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
-            self.retweetImgView.contentMode = UIViewContentModeScaleAspectFit;
+//            SinaPhoto *retweetSinaPhoto = retweedSinaStatus.pic_urls.firstObject;
+//            [self.retweetImgView sd_setImageWithURL:[NSURL URLWithString:retweetSinaPhoto.thumbnail_pic] placeholderImage:[UIImage imageNamed:@"timeline_image_placeholder"]];
+//            self.retweetImgView.contentMode = UIViewContentModeScaleAspectFit;
+            
+#warning Todo
+            
             //循环引用，所以在不用的时候，必须要hidden掉这个图片
-            self.retweetImgView.hidden = NO;
+            self.retweetImgsView.hidden = NO;
         }else{//没有图片
-            self.retweetImgView.hidden = YES;
+            self.retweetImgsView.hidden = YES;
         }
         
         self.retweetView.hidden = NO;
