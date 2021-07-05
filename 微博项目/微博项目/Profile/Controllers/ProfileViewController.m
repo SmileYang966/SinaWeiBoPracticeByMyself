@@ -17,12 +17,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"设置" style:UIBarButtonItemStylePlain target:self action:@selector(settingClicked:)];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+//在View即将显示的时候，再设置navigationBar右边BarButtonItem为不可点击状态
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    //这个item在Disabled时候就能在右边的BarButtonItem为不可点击状态下，显示其对应的属性
+    self.navigationItem.rightBarButtonItem.enabled = false;
 }
+
+- (void)settingClicked:(UIBarButtonItem *)item{
+    //To do in future
+}
+
 
 /*
 #pragma mark - Navigation

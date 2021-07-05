@@ -13,7 +13,9 @@
 #import "ProfileViewController.h"
 #import "WeiBoNavigationController.h"
 
-@interface WeiBoTabBarController ()
+#import "SCTabBar.h"
+
+@interface WeiBoTabBarController ()<SCTabBarDelegate>
 
 @end
 
@@ -30,8 +32,8 @@
         [self addChildWithViewController:messageCenterVC ImageName:@"tabbar_message_center" SelectedImageName:@"tabbar_message_center_selected" title:@"消息中心"];
         
         //Discover ViewController
-        DiscoverViewController *disconverVC = [[DiscoverViewController alloc]init];
-        [self addChildWithViewController:disconverVC ImageName:@"tabbar_discover" SelectedImageName:@"tabbar_discover_selected" title:@"发现"];
+        DiscoverViewController *discoverVC = [[DiscoverViewController alloc]init];
+        [self addChildWithViewController:discoverVC ImageName:@"tabbar_discover" SelectedImageName:@"tabbar_discover_selected" title:@"发现"];
         
         //Profile ViewController
         ProfileViewController *profileVC = [[ProfileViewController alloc]init];
@@ -47,7 +49,7 @@
     
     NSDictionary *attributeSelected = @{NSForegroundColorAttributeName : [UIColor orangeColor]};
     [vc.tabBarItem setTitleTextAttributes:attributeSelected forState:UIControlStateSelected];
-    vc.view.backgroundColor = SCRandomColor;
+//    vc.view.backgroundColor = SCRandomColor;
     
     WeiBoNavigationController *nav = [[WeiBoNavigationController alloc]initWithRootViewController:vc];
     vc.title = title;
@@ -57,6 +59,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    SCTabBar *scTabBar = [[SCTabBar alloc]initWithFrame:self.tabBar.bounds];
+    scTabBar.delegate = self;
+    [self setValue:scTabBar forKeyPath:@"tabBar"];
+}
+
+- (void)tabBarDidClickedPlusButton:(SCTabBar *)tabBar{
+    UIViewController *vc = [[UIViewController alloc]init];
+    vc.view.backgroundColor = [UIColor redColor];
+    [self presentViewController:vc animated:true completion:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    for (UIView *subView in self.tabBar.subviews) {
+        NSLog(@"---subview=%@,subviews.count=%d",subView,(int)self.tabBar.subviews.count);
+    }
 }
 
 @end

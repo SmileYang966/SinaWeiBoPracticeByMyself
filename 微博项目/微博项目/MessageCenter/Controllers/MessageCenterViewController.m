@@ -19,6 +19,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"写私信" style:UIBarButtonItemStylePlain target:self action:@selector(writeMsg)];
+    
+}
+
+-(void)writeMsg{
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -37,7 +44,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     TestingViewController *testingVC = [[TestingViewController alloc]init];
-    testingVC.hidesBottomBarWhenPushed = YES;
+//    testingVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:testingVC animated:YES];
 }
 

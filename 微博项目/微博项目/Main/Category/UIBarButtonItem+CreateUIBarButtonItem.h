@@ -10,6 +10,6 @@
 
 @interface UIBarButtonItem (CreateUIBarButtonItem)
 
-+(UIBarButtonItem *)barButtonWithAction:(SEL)actioin Image:(NSString *)image HighlightedImage:(NSString *)hightlightedImage;
++(UIBarButtonItem *)barButtonWithTarget:(id)target Action:(SEL)actioin Image:(NSString *)image HighlightedImage:(NSString *)hightlightedImage;
 
 @end

@@ -10,14 +10,14 @@
 
 @implementation UIBarButtonItem (CreateUIBarButtonItem)
 
-+(UIBarButtonItem *)barButtonWithAction:(SEL)actioin Image:(NSString *)image HighlightedImage:(NSString *)hightlightedImage{
++(UIBarButtonItem *)barButtonWithTarget:(id)target Action:(SEL)actioin Image:(NSString *)image HighlightedImage:(NSString *)hightlightedImage{
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *backImage = [UIImage imageNamed:image];
     UIImage *backHighlightedImage = [UIImage imageNamed:hightlightedImage];
     [btn setBackgroundImage:backImage forState:UIControlStateNormal];
     [btn setBackgroundImage:backHighlightedImage forState:UIControlStateHighlighted];
     btn.size = backImage.size;
-    [btn addTarget:self action:actioin forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:target action:actioin forControlEvents:UIControlEventTouchUpInside];
     return [[self alloc]initWithCustomView:btn];
 }
 
